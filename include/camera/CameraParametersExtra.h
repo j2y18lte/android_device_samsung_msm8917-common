@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2016 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-const char CameraParameters::KEY_NIGHTSHOT_ENABLE[] = "nightshot-enable"; \
-const char CameraParameters::KEY_NIGHTSHOT_ISENABLED[] = "nightshot-isenabled"; \
-const char CameraParameters::KEY_NIGHTHAWK_ENABLE[] = "nighthawk-enable"; \
-\
+    const char CameraParameters::KEY_OIS_SUPPORTED[] = "ois_supported"; \
+    const char CameraParameters::KEY_SUPPORTED_EFFECT_PREVIEW_FPS_RANGE[] = "effect-available-fps-values"; \
+    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp"; \
+    int CameraParameters::getInt64(const char *key) const { return -1; }
 
 #define CAMERA_PARAMETERS_EXTRA_H \
-static const char KEY_NIGHTSHOT_ENABLE[]; \
-static const char KEY_NIGHTSHOT_ISENABLED[]; \
-static const char KEY_NIGHTHAWK_ENABLE[]; \
-\
+    static const char KEY_OIS_SUPPORTED[]; \
+    static const char KEY_SUPPORTED_EFFECT_PREVIEW_FPS_RANGE[]; \
+    static const char PIXEL_FORMAT_YUV420SP_NV21[]; \
+    int getInt64(const char *key) const;

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2022 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +18,11 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_C_INCLUDES := \
+    system/core/base/include \
+    system/core/init
 LOCAL_MODULE_TAGS := optional
-LOCAL_C_INCLUDES := system/core/init
-LOCAL_SRC_FILES := init_bqmsm8937.cpp
-LOCAL_MODULE := libinit_bqmsm8937
+LOCAL_SRC_FILES := init_msm8937.cpp
+LOCAL_MODULE := libinit_msm8937
 
 include $(BUILD_STATIC_LIBRARY)

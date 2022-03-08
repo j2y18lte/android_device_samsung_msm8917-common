@@ -29,12 +29,11 @@
 
 #include <private/android_filesystem_config.h>
 
-
 #define NO_ANDROID_FILESYSTEM_CONFIG_DEVICE_DIRS
-static const struct fs_path_config android_device_files[] = {
+ const struct fs_path_config android_device_files[] = {
       // { 00755, AID_UID,     AID_GID,     (1ULL << CAPABILITY), "PATH_TO_BINARY" },
-       { 00755, AID_SYSTEM,      AID_SYSTEM,      (1ULL << CAP_NET_BIND_SERVICE), "system/bin/pm-service"},
-#ifdef NO_ANDROID_FILESYSTEM_CONFIG_DEVICE_DIRS
-       { 00000, AID_ROOT,      AID_ROOT,      0, "system/etc/fs_config_dirs" },
-#endif
+      { 00755, AID_SYSTEM,      AID_SYSTEM,      (1ULL << CAP_NET_BIND_SERVICE), "system/bin/pm-service"},
+      { 00755, AID_SYSTEM,         AID_SYSTEM,         (1ULL << CAP_NET_BIND_SERVICE), "system/bin/imsdatadaemon" },
+      { 00755, AID_SYSTEM,         AID_SYSTEM,         (1ULL << CAP_NET_BIND_SERVICE), "system/bin/cnss-daemon"},
+      { 00755, AID_SYSTEM,         AID_RADIO,          (1ULL << CAP_NET_BIND_SERVICE), "system/bin/ims_rtp_daemon" },
 };
