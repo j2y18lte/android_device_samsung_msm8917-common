@@ -90,7 +90,10 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8996
+    camera.msm8937
+
+PRODUCT_PACKAGES += \
+    Snap
 
 # Display
 PRODUCT_PACKAGES += \
@@ -196,10 +199,6 @@ PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     librmnetctl \
     libxml2
-
-# Snap
-PRODUCT_PACKAGES += \
-    Snap
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \

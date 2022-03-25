@@ -95,8 +95,9 @@ QCOM_BT_USE_BTNV := true
 QCOM_BT_USE_SMD_TTY := true
 
 # Camera
+TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext
+BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-TARGET_USES_MEDIA_EXTENSIONS := true
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -131,6 +132,7 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3514826752
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 11643367424
 BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_ROOT_EXTRA_FOLDERS   := dsp efs firmware firmware-modem persist
 
 # FM
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
@@ -161,12 +163,6 @@ TARGET_SYSTEM_PROP := $(COMMON_PATH)/system.prop
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
-
-# Ramdisk
-BOARD_ROOT_EXTRA_FOLDERS := dsp efs firmware firmware-modem persist
-BOARD_ROOT_EXTRA_SYMLINKS := /system/etc/firmware/btfw32.tlv:/bt_firmware/image/btfw32.tlv
-BOARD_ROOT_EXTRA_SYMLINKS += /system/etc/firmware/btnv32.bin:/bt_firmware/image/btnv32.bin
-BOARD_ROOT_EXTRA_SYMLINKS += /data/tombstones:/tombstones
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.qcom
