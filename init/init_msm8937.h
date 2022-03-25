@@ -31,6 +31,5 @@
 #define __INIT_MSM8937__H__
 
 void init_target_properties();
-void property_override(char const prop[], char const value[]);
 
 #endif /* __INIT_MSM8937__H__ */
