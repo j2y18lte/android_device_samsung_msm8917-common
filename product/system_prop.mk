@@ -127,7 +127,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Radio
 ifneq ($(TARGET_HAS_DUALSIMS),true)
     PRODUCT_PROPERTY_OVERRIDES += \
-        ro.telephony.ril_class=msm8953RIL
+        ro.telephony.ril_class=msm8937RIL
 endif
 
 # SAMP SPCM
@@ -137,6 +137,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     sys.config.spcm_db_launcher=true \
     sys.config.spcm_preload_enable=true
 
+# Screen
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.sf.lcd_density=240
+
 # Time services
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
@@ -144,6 +148,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Video encoding
 PRODUCT_PROPERTY_OVERRIDES += \
     vidc.enc.narrow.searchrange=1
+
+# Volume
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.config.vc_call_vol_steps=15 \
+	ro.config.media_vol_steps=20
 
 # WiDi
 PRODUCT_PROPERTY_OVERRIDES += \
