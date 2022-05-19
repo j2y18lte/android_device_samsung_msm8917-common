@@ -125,10 +125,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.at_library=libqti-at.so
 
 # Radio
-ifneq ($(TARGET_HAS_DUALSIMS),true)
-    PRODUCT_PROPERTY_OVERRIDES += \
-        ro.telephony.ril_class=msm8937RIL
-endif
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=msm8937RIL
 
 # SAMP SPCM
 PRODUCT_PROPERTY_OVERRIDES += \

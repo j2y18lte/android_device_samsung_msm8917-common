@@ -38,8 +38,8 @@
 /dev/smd0                 0660   system     system
 /dev/smd4                 0660   system     system
 /dev/smd_cxm_qmi          0640   radio      radio
-/dev/smd5                 0660   bluetooth  bluetooth
-/dev/smd6                 0660   bluetooth  bluetooth
+/dev/smd5                 0660   system     system
+/dev/smd6                 0660   system     system
 /dev/smd7                 0660   bluetooth  bluetooth
 /dev/ccid_bridge          0660   system     system
 /dev/ipa                  0660   system     net_admin
@@ -47,6 +47,9 @@
 /dev/ipaNatTable          0660   net_admin  net_admin
 /dev/rmnet_ctrl           0660   usb        usb
 /dev/dpl_ctrl             0660   usb        usb
+/dev/power_on_alarm       0660   system     radio
+/dev/vfsspi               0660   system     system
+/dev/esfp0                0660   system     system
 
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
@@ -241,6 +244,7 @@
 /dev/nfc-nci              0660    nfc         nfc
 /dev/nq-nci               0660    nfc         nfc
 /dev/assd                 0660    nfc         nfc
+/dev/sec-nfc              0660    nfc         nfc
 
 # UIO devices
 /dev/uio0                 0660   system     system
@@ -265,6 +269,28 @@
 
 # Add device block for FRP
 /dev/block/platform/soc/7824900.sdhci/by-name/config    0600   system     system
+/dev/block/platform/soc/624000.ufshc/by-name/config     0600   system     system
 /dev/block/platform/soc/7464900.sdhci/by-name/frp       0600   system     system
 /dev/block/platform/soc/624000.ufshc/by-name/frp        0600   system     system
 /dev/block/platform/soc/1da4000.ufshc/by-name/frp       0600   system     system
+
+# Mobicore
+/dev/mobicore				0600 	system		system
+/dev/mobicore-user			0666 	system		system
+/dev/t-base-tui				0660 	system		system
+
+# Google FRP solution
+/dev/block/platform/soc/7824900.sdhci/by-name/persistent    0660    system    system
+
+# Reactivation Lock solution
+/dev/block/platform/soc/7824900.sdhci/by-name/steady    0660    system    system
+
+# Fingerprint Sensor
+/dev/esfp0        0660   system     system
+
+# Sensorhub IIO
+/dev/ssp_sensorhub        0660   system		system
+/dev/iio:device*          0660   system		system
+/sys/devices/soc/7af5000.spi/spi_master/spi5/spi5.0/iio:device*    buffer/enable       0660    system    system
+/sys/devices/soc/7af5000.spi/spi_master/spi5/spi5.0/iio:device*    buffer/length       0660    system    system
+/sys/bus/iio/devices/iio:device*    0664   system     radio

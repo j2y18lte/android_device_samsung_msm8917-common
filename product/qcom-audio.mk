@@ -27,7 +27,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_sku3.xml:system/etc/mixer_paths_qrd_sku3.xml \
+    hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_sku1.xml:system/etc/mixer_paths_qrd_sku1.xml \
+    hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_sku2.xml:system/etc/mixer_paths_qrd_sku2.xml \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_skuh.xml:system/etc/mixer_paths_qrd_skuh.xml \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_skuhf.xml:system/etc/mixer_paths_qrd_skuhf.xml \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/mixer_paths_qrd_skui.xml:system/etc/mixer_paths_qrd_skui.xml \

@@ -21,8 +21,5 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Include package config fragments
 include $(COMMON_PATH)/product/*.mk
 
-# Include proprietary blobs
-$(call inherit-product, vendor/samsung/msm8937-common/msm8937-common-vendor.mk)
-
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay

@@ -11,4 +11,7 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.wifi.rc \
     ueventd.qcom.rc \
-    init.qcom.post_boot.sh
+    init.qcom.bt.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qti.ims.sh

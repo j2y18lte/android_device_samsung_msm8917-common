@@ -2,8 +2,9 @@
 PRODUCT_PACKAGES += \
     libril \
     librilutils \
-    rild
-
+    rild \
+    libxml2
+    
 # QMI Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/data/dsi_config.xml:system/etc/data/dsi_config.xml \

@@ -7,33 +7,14 @@
 import /init.fac.rc
 
 on init
-
-on post-fs-data
-
-#Private Mode
-    mkdir /mnt/shell/ 0750 shell shell
-    mkdir /mnt/shell/privatemode 0700 system system
-    mkdir /storage/Private 0000 system system
-    mkdir /data/privatemode 0770 system system
-    chown system system /data/privatemode
-    restorecon /data/privatemode
-
-#SystemFramework
-    chown system system /data/cache/backup
-    chmod 0711 /data/cache/backup
-    chown system system /data/cache/backup_stage
-    chmod 0711 /data/cache/backup_stage
-
-# Create carrier folder for HiddenMenu
-on post-fs
-     mkdir /efs/carrier 0755 system system
+#Carrier
+    mkdir /carrier 0771 system system
 
 on early-boot
     chown bluetooth net_bt_stack /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
 
 on fs
-
 # Fingerprint
     mkdir /dev/validity 0770 system system
     mkdir /data/validity 0770 system system
@@ -52,9 +33,6 @@ on boot
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
     chown system radio /sys/class/sec/sec_touchkey/sar_enable
     chown system radio /sys/class/sec/sec_touchkey/sw_reset
-
-# SSWAP
-    write /proc/sys/vm/swappiness 130
 
 # Permissions for Input Booster
     chmod 0660 /sys/class/input_booster/level
@@ -76,12 +54,16 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
-# Permissions for Charging
-    chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/store_mode
-
-# Audio NXP
+# Audio NXP for c7lte
     chmod 0660 /dev/i2c-1
-    chown system system /dev/i2c-1
+    chown audio audio /dev/i2c-1
+# Audio NXP for c7prolte
+    chmod 0660 /dev/i2c-25
+    chown audio audio /dev/i2c-25
+
+# op mode for charger
+	chmod 0664 /sys/class/power_supply/sm5705-charger/charger_op_mode
+	chown system radio /sys/class/power_supply/sm5705-charger/charger_op_mode
 
 # vibrator type
     chmod 0666 "/sys/class/sec/vib/dc_pmic"
@@ -126,11 +108,11 @@ on boot
     setprop ro.mst.support 0
 
 #SLocation
-	service cellgeofenced /system/bin/cellgeofenced
-		class main
-		socket cellgeofence seqpacket 0660 gps system
-		user gps
-		group system inet
+service cellgeofenced /system/bin/cellgeofenced
+    class main
+    socket cellgeofence seqpacket 0660 gps system
+    user gps
+    group system inet
 
 # IMS Stack
 service imsd /system/bin/imsd
@@ -139,13 +121,6 @@ service imsd /system/bin/imsd
     user root
     group system radio net_raw inet net_admin readproc
 
-# SSWAP
-service swapon /sbin/sswap -s -f 1024
-    class core
-    user root
-    group root
-    seclabel u:r:sswap:s0
-    oneshot
 
 # for wlan FTM app
 service ftm_ptt /system/bin/ftm_ptt -d
@@ -177,16 +152,6 @@ service sem_daemon /system/bin/sem_daemon
     chown system system /sys/class/sec/led/led_pattern
     chown system system /sys/class/sec/led/led_blink
     chown system system /sys/class/sec/led/led_lowpower
-
-# Move 2 SD card
-service extSdUFSVold /system/bin/extSDCardServiceVold
-    class main
-    user system
-    group system mount radio net_bt sdcard_rw shell media media_rw
-
-# Create carrier folder for HiddenMenu
-on post-fs
-     mkdir /efs/carrier 0755 system system
 
 #add tunman
 service tunman /system/bin/tunman

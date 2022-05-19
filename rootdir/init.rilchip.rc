@@ -4,14 +4,6 @@
 # This is a common source of Android security bugs.
 #
 
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log qcom_diag system drmrpc vpn readproc
-
 service diag_uart_log /system/bin/diag_uart_log
     class main
     user root
@@ -21,7 +13,7 @@ service diag_uart_log /system/bin/diag_uart_log
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps nfc qcom_diag
 
 service diag_mdlog_start /system/bin/diag_mdlog
     class late_start
@@ -37,7 +29,7 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     disabled
     oneshot
 
-service ril-daemon1 /system/bin/rild -c 2
+service ril-daemon1 /system/bin/rild -l /system/lib64/libsec-ril-dsds.so -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
@@ -50,29 +42,11 @@ service SMD-daemon /system/bin/smdexe
     user root
     group system radio inet net_raw
 
-service start_netmgrd /system/bin/sh /system/etc/control_netmgrd.sh start
-    class main
-    user root
-    group radio
-    disabled
-    oneshot
+on property:persist.radio.multisim.config=dsds
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon1
 
-service stop_netmgrd /system/bin/sh /system/etc/control_netmgrd.sh stop
-    class main
-    user root
-    group radio
-    disabled
-    oneshot
-
-on property:ril.restart.netmgrd=true
-    start stop_netmgrd
-
-on property:init.svc.netmgrd=stopped
-    start start_netmgrd
-
-on property:sys.control.netmgr=started
-    setprop ril.restart.netmgrd false
-    setprop sys.control.netmgr done
-
-on property:init.svc.netmgrd=restarting
-    setprop sys.control.netmgr restarted
+on property:persist.radio.multisim.config=tsts
+    start ril-daemon1
+    start ril-daemon2
