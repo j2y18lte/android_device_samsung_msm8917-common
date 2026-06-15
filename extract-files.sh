@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=msm8917-common
+DEVICE=j2y18lte
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks

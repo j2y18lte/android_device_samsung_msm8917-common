@@ -1,0 +1,58 @@
+<!--
+-->
+<CameraConfigurationRoot>
+  <CameraModuleConfig>
+    <CameraId>0</CameraId>
+    <SensorName>sr846</SensorName>
+    <ActuatorName>zc535</ActuatorName>
+    <EepromName>zc535</EepromName>
+    <OisName> </OisName>
+    <FlashName>pmic</FlashName>
+    <ChromatixName>Y08QF_sr846_chromatix</ChromatixName>
+    <ModesSupported>1</ModesSupported>
+    <Position>0</Position>
+    <MountAngle>90</MountAngle>
+    <CSIInfo>
+      <CSIDCore>0</CSIDCore>
+      <LaneMask>0x1F</LaneMask>
+      <LaneAssign>0x4320</LaneAssign>
+      <ComboMode>0</ComboMode>
+    </CSIInfo>
+    <LensInfo>
+      <FocalLength>3.3</FocalLength>
+      <Focallengthfilm>31</Focallengthfilm>
+      <FNumber>2.2</FNumber>
+      <TotalFocusDistance>1.97</TotalFocusDistance>
+      <HorizontalViewAngle>57</HorizontalViewAngle>
+      <VerticalViewAngle>44</VerticalViewAngle>
+      <MinFocusDistance>0.1</MinFocusDistance>
+    </LensInfo>
+  </CameraModuleConfig>
+  <CameraModuleConfig>
+    <CameraId>1</CameraId>
+    <OisName> </OisName>
+    <SensorName>s5k5e3yx</SensorName>
+    <EepromName>lsi_s5k5e3yx</EepromName>
+    <FlashName>pmic</FlashName>
+    <ChromatixName>s5k5e3yx_f2_2_chromatix</ChromatixName>
+    <ModesSupported>1</ModesSupported>
+    <Position>1</Position>
+    <MountAngle>270</MountAngle>
+    <CSIInfo>
+      <CSIDCore>1</CSIDCore>
+      <LaneMask>0x7</LaneMask>
+      <LaneAssign>0x4320</LaneAssign>
+      <ComboMode>0</ComboMode>
+    </CSIInfo>
+    <LensInfo>
+      <FocalLength>1.92</FocalLength>
+      <Focallengthfilm>24</Focallengthfilm>
+      <FNumber>2.2</FNumber>
+      <TotalFocusDistance>0.5</TotalFocusDistance>
+      <HorizontalViewAngle>72.3</HorizontalViewAngle>
+      <VerticalViewAngle>57.2</VerticalViewAngle>
+      <MinFocusDistance>0.5</MinFocusDistance>
+    </LensInfo>
+  </CameraModuleConfig>
+ </CameraConfigurationRoot>
+

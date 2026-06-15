@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=msm8917-common
+DEVICE=j2y18lte
 VENDOR=samsung
 
 INITIAL_COPYRIGHT_YEAR=2019
