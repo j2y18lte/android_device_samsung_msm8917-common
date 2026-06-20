@@ -1,0 +1,8 @@
+#
+# Copyright (c) 2023 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+key 158   BACK        VIRTUAL
+key 254   APP_SWITCH  VIRTUAL

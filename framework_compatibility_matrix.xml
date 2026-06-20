@@ -469,14 +469,6 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
-        <name>vendor.samsung.hardware.camera.provider</name>
-        <version>2.4</version>
-        <interface>
-            <name>ISecCameraProvider</name>
-            <instance>legacy/0</instance>
-        </interface>
-    </hal>
-    <hal format="hidl" optional="true">
         <name>vendor.samsung.hardware.exthealth</name>
         <version>1.0</version>
         <interface>

@@ -48,8 +48,6 @@ on early-init
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules msm_11ad_proxy
 
 on init
-    export LD_SHIM_LIBS /system/vendor/lib/hw/camera.msm8937.so|libshim_camera.so
-
     # Create cgroup mount point for memory
     mkdir /sys/fs/cgroup/memory/bg 0750 root system
     write /sys/fs/cgroup/memory/bg/memory.swappiness 140
@@ -229,6 +227,32 @@ on boot
 
     # Allow access for CCID command/response timeout configuration
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+	# Permissions for Camera
+    chown cameraserver cameraserver /sys/kernel/mm/vmscan/mem_boost_mode
+    chown system system /sys/class/camera/rear/rear_camfw
+    chown system system /sys/class/camera/rear/rear_camfw_full
+    chown system system /sys/class/camera/rear/rear_camfw_load
+    chown system system /sys/class/camera/rear/rear_camtype
+    chown system system /sys/class/camera/rear/rear_calcheck
+    chown system system /sys/class/camera/rear/rear_fwcheck
+    chown system system /sys/class/camera/rear/rear_checkfw_user
+    chown system system /sys/class/camera/rear/rear_checkfw_factory
+    chown system system /sys/class/camera/rear/rear_afcal
+    chown system system /sys/class/camera/rear/isp_core
+    chown system system /sys/class/camera/rear/rear_mtf_exif
+    chown system system /sys/class/camera/rear/rear_moduleid
+    chown system system /sys/class/camera/rear/rear2_moduleid
+    chown system system /sys/class/camera/flash/rear_flash
+    chown system system /sys/class/camera/front/front_camfw
+    chown system system /sys/class/camera/front/front_camtype
+    chown system system /sys/class/camera/front/front_camfw_full
+    chown system system /sys/class/camera/front/front_checkfw_user
+    chown system system /sys/class/camera/front/front_checkfw_factory
+    chown system system /sys/class/camera/front/front_mtf_exif
+
+   # Camera XML
+    symlink /system/etc/camera /data/misc/camera
 
     # Allow access to emmc rawdump block partition and dload sysfs node
     chown root system /dev/block/bootdevice/by-name/rawdump

@@ -107,9 +107,13 @@ on post-fs-data
 
 #start camera server as daemon
 service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
-    class main
+    class late_start
     user camera
     group camera system inet input graphics
+    setenv LD_PRELOAD libshim_mutexdestroy.so
+
+on property:init.svc.qcamerasvr=running
+    restart media
 
 on init
    write /dev/stune/top-app/schedtune.colocate 1

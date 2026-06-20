@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019-2020 The LineageOS Project
+# Copyright (C) 2018-2021 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 DEVICE_PATH := device/samsung/j2y18lte
 BOARD_VENDOR := samsung
@@ -102,6 +103,9 @@ BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_USES_MEDIA_EXTENSIONS := true
+MALLOC_SVELTE_FOR_LIBC32 := true
+TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
+    /vendor/bin/mm-qcamera-daemon=27
 
 # Dex
 ifeq ($(HOST_OS),linux)
@@ -153,7 +157,10 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 # Lights
-TARGET_PROVIDES_LIBLIGHT=true
+TARGET_PROVIDES_LIBLIGHT := true
+
+# Malloc implementation
+MALLOC_SVELTE := true
 
 # Power
 TARGET_USES_NON_LEGACY_POWERHAL := true
@@ -167,10 +174,6 @@ ENABLE_VENDOR_RIL_SERVICE := true
 
 # Root
 BOARD_ROOT_EXTRA_FOLDERS := config omr efs
-
-# Shims
-TARGET_LD_SHIM_LIBS := \
-    /system/vendor/lib/hw/camera.msm8937.so|libshim_camera.so
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom

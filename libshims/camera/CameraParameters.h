@@ -1,0 +1,37 @@
+/*
+ * Copyright (C) 2017 The LineageOS Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace android {
+
+class CameraParameters
+{
+public:
+    static const char KEY_OIS[];
+    static const char KEY_OIS_SUPPORTED[];
+    static const char KEY_SUPPORTED_OIS_MODES[];
+    static const char KEY_SUPPORTED_EFFECT_PREVIEW_FPS_RANGE[];
+    static const char OIS_CENTERING[];
+    static const char OIS_OFF[];
+    static const char OIS_ON_SINE_X[];
+    static const char OIS_ON_SINE_Y[];
+    static const char OIS_ON_STILL[];
+    static const char OIS_ON_VIDEO[];
+    static const char OIS_ON_ZOOM[];
+    static const char PIXEL_FORMAT_YUV420SP_NV21[];
+    int getInt64(const char *key) const;
+};
+
+}; // namespace android

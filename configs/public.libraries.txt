@@ -1,5 +1,3 @@
-libBeauty_v2.camera.samsung.so
-libFacePreProcessing.camera.samsung.so
 libOpenCL.so
 libOpenCv.camera.samsung.so
 libSEF.quram.so
@@ -12,10 +10,8 @@ libnpu.so
 libqti-perfd-client.so
 libremotedesktop_client.knox.samsung.so
 libsdsprpc.so
-libsmart_cropping.camera.samsung.so
 libsnap_caffe.so
 libsomp.camera.samsung.so
 libtmdisplay.so
 libvideoeditor_O_zf.so
 libvideoeditor_jni_O_zf.so
-libxcv.camera.samsung.so
