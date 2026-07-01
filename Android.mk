@@ -21,7 +21,7 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 # ADSP
 ADSP_IMAGES := \
 	adsp.b00 adsp.b01 adsp.b02 adsp.b03 adsp.b04 adsp.b05 adsp.b06 adsp.b07 \
-	adsp.b08 adsp.b09 adsp.b10 adsp.b11 adsp.b12 adsp.b13 adsp.mdt
+	adsp.b08 adsp.b09 adsp.b10 adsp.b11 adsp.b12 adsp.b13 adsp.b14 adsp.mdt
 
 ADSP_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(ADSP_IMAGES)))
 $(ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -31,19 +31,6 @@ $(ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware-modem/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(ADSP_SYMLINKS)
-
-# Adreno
-ADRENO_IMAGES := \
-    a506_zap.b00 a506_zap.b01 a506_zap.b02 a506_zap.mdt
-
-ADRENO_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(ADRENO_IMAGES)))
-$(ADRENO_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Adreno Firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(ADRENO_SYMLINKS)
 
 # MBA
 MBA_IMAGES := \
@@ -60,11 +47,10 @@ ALL_DEFAULT_INSTALLED_MODULES += $(MBA_SYMLINKS)
 
 # Modem
 MODEM_IMAGES := \
-	modem.b00 modem.b01 modem.b02 modem.b04 modem.b05 \
-	modem.b06 modem.b07 modem.b08 modem.b09 modem.b10 \
-	modem.b11 modem.b12 modem.b13 modem.b16 modem.b17 \
-	modem.b18 modem.b19 modem.b20 modem.b21 modem.mdt \
-	modem_pr
+	modem.b00 modem.b01 modem.b03 modem.b05 modem.b06 \
+	modem.b07 modem.b08 modem.b09 modem.b10 modem.b11 \
+	modem.b12 modem.b13 modem.b17 modem.b18 modem.b19 \
+	modem.b20 modem.b21 modem.b22 modem.mdt modem_pr	
 
 MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(MODEM_IMAGES)))
 $(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)

@@ -71,7 +71,7 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=267
+    ro.sf.lcd_density=240
 
 # FRP
 #PRODUCT_PROPERTY_OVERRIDES += \
@@ -84,7 +84,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=1 \
     debug.egl.hw=0 \
     debug.gralloc.enable_fb_ubwc=1 \
-    ro.opengles.version=196610 \
+    ro.opengles.version=196608 \
     sdm.debug.disable_skip_validate=1 \
     sys.disable_ext_animation=1
 
