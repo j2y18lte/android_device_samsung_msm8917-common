@@ -1,1 +1,1 @@
-# android_device_samsung_j7popltespr
+# android_device_samsung_j2y18lte

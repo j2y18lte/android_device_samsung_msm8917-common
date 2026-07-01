@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=j7popltespr
+DEVICE=msm8937
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks

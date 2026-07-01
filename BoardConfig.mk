@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE_PATH := device/samsung/j7popltespr
+DEVICE_PATH := device/samsung/j2y18lte
 
 BOARD_VENDOR := samsung
 
@@ -23,15 +23,15 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/vendor/bin/mm-qcamera-daemon=27
 
 # Assertions
-TARGET_OTA_ASSERT_DEVICE := j7popltespr,SM-J727P,J727P
+TARGET_OTA_ASSERT_DEVICE := j2y18lte,SM-J250F,J250F
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8953
+TARGET_BOOTLOADER_BOARD_NAME := MSM8937
 TARGET_NO_BOOTLOADER := true
 
 # Platform
-TARGET_BOARD_PLATFORM := msm8953
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
+TARGET_BOARD_PLATFORM := msm8937
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno308
 
 # Architecture
 TARGET_ARCH := arm64
@@ -52,8 +52,8 @@ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := kernel/samsung/msm8953
-TARGET_KERNEL_CONFIG := j7popltespr_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/msm8937
+TARGET_KERNEL_CONFIG := j2y18lte_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 BOARD_CUSTOM_BOOTIMG := true
@@ -229,7 +229,7 @@ include device/qcom/sepolicy/sepolicy.mk
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-     /system/vendor/lib/hw/camera.msm8953.so|libshims_camera.so 
+     /system/vendor/lib/hw/camera.msm8937.so|libshims_camera.so 
 
 # Snapdragon LLVM
 TARGET_USE_SDCLANG := true
