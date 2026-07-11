@@ -16,8 +16,6 @@
 
 LOCAL_PATH := device/samsung/j2y18lte
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -107,6 +105,14 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # GPS
 USE_DEVICE_SPECIFIC_GPS := true
 TARGET_NO_RPC := true
+
+#Include path
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_msm8917
+TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
+TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8917
 
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
