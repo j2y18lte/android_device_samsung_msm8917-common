@@ -56,6 +56,49 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
+# Audio
+PRODUCT_PACKAGES += \
+    audiod \
+    audio.a2dp.default \
+    audio.primary.msm8937 \
+    audio.r_submix.default \
+    audio.usb.default \
+    libaudio-resampler \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    tinymix
+
+# Audio configuration
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/config/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
+	$(LOCAL_PATH)/config/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	$(LOCAL_PATH)/config/audio/audio_effects_sec.conf:system/vendor/etc/audio_effects_sec.conf \
+	$(LOCAL_PATH)/config/audio/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
+	$(LOCAL_PATH)/config/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+	$(LOCAL_PATH)/config/audio/audio_platform_info_extcodec.xml:system/etc/audio_platform_info_extcodec.xml \
+	$(LOCAL_PATH)/config/audio/audio_policy.conf:system/etc/audio_policy.conf \
+	$(LOCAL_PATH)/config/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_sku1.xml:system/etc/mixer_paths_qrd_sku1.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_sku2.xml:system/etc/mixer_paths_qrd_sku2.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_skuh.xml:system/etc/mixer_paths_qrd_skuh.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_skuhf.xml:system/etc/mixer_paths_qrd_skuhf.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_skui.xml:system/etc/mixer_paths_qrd_skui.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_skum.xml:system/etc/mixer_paths_qrd_skum.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_qrd_skun.xml:system/etc/mixer_paths_qrd_skun.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_skuk.xml:system/etc/mixer_paths_skuk.xml \	
+	$(LOCAL_PATH)/config/audio/mixer_paths_wcd9330.xml:system/etc/mixer_paths_wcd9330.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_wcd9306.xml:system/etc/mixer_paths_wcd9306.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_wcd9335.xml:system/etc/mixer_paths_wcd9335.xml \
+	$(LOCAL_PATH)/config/audio/mixer_paths_wcd9326.xml:system/etc/mixer_paths_wcd9326.xml \
+
+	$(LOCAL_PATH)/config/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
+	$(LOCAL_PATH)/config/audio/sound_trigger_mixer_paths_wcd9306.xml:system/etc/sound_trigger_mixer_paths_wcd9306.xml \
+	$(LOCAL_PATH)/config/audio/sound_trigger_mixer_paths_wcd9330.xml:system/etc/sound_trigger_mixer_paths_wcd9330.xml \
+	$(LOCAL_PATH)/config/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
+	$(LOCAL_PATH)/config/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8937 \
