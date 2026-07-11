@@ -1,3 +1,155 @@
 #
 # system.prop for j2y18lte
 #
+
+# Audio
+af.fast_track_multiplier=1
+audio_hal.period_size=192
+audio.dolby.ds2.enabled=true
+audio.deep_buffer.media=true
+audio.offload.buffer.size.kb=64
+audio.offload.gapless.enabled=true
+audio.offload.min.duration.secs=30
+audio.offload.multiple.enabled=false
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
+audio.offload.track.enable=true
+audio.offload.video=true
+audio.playback.mch.downsample=true
+audio.safx.pbe.enabled=true
+persist.audio.fluence.audiorec=false
+persist.audio.fluence.speaker=false
+persist.audio.fluence.voicecall=false
+persist.audio.fluence.voicerec=false
+ro.qc.sdk.audio.fluencetype=none
+ro.qc.sdk.audio.ssr=false
+tunnel.audio.encode=false
+use.voice.path.for.pcm.voip=true
+rec.playback.conc.disabled=true
+voice.conc.fallbackpath=deep-buffer
+voice.playback.conc.disabled=true
+voice.record.conc.disabled=false
+use.qti.sw.alac.decoder=true
+use.qti.sw.ape.decoder=true
+ro.config.vc_call_vol_steps=15
+ro.config.media_vol_steps=20
+
+#CABL
+ro.qualcomm.cabl=0
+
+# Bluetooth
+bluetooth.hfp.client=1
+qcom.bluetooth.soc=smd
+ro.qualcomm.bt.hci_transport=smd
+
+# Camera
+camera.hal1.packagelist=com.skype.raider,com.google.android.talk
+camera.display.umax=1920x1080
+camera.display.lmax=1280x720
+camera.lowpower.record.enable=1
+vidc.enc.dcvs.extra-buff-count=2
+persist.camera.feature.cac=1
+persist.camera.gyro.disable=0
+persist.camera.imglib.cac3=2
+persist.camera.isp.clock.optmz=0
+
+# DRM
+drm.service.enabled=true
+
+# FM radio
+ro.fm.transmitter=false
+
+# Graphics
+debug.sf.hw=0
+debug.egl.hw=0
+debug.enable.sglscale=1
+debug.mdpcomp.logs=0
+dev.pm.dyn_samplingrate=1
+persist.hwc.mdpcomp.enable=true
+persist.demo.hdmirotationlock=false
+ro.opengles.version=196608
+persist.graphics.vulkan.disable=true
+ro.sf.lcd_density=240
+debug.composition.type=c2d
+
+# Media
+vidc.enc.narrow.searchrange=1
+media.aac_51_output_enabled=true
+media.stagefright.enable-aac=true
+media.stagefright.enable-fma2dp=true
+media.stagefright.enable-http=true
+media.stagefright.enable-player=true
+media.stagefright.enable-qcp=true
+media.stagefright.enable-scan=true
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
+media.stagefright.use-awesome=true
+media.swhevccodectype=0
+mm.enable.qcom_parser=1048575
+mm.enable.smoothstreaming=true
+media.msm8956hw=0
+mmp.enable.3g2=true
+vidc.enc.disable_bframes=1
+vidc.disable.split.mode=1
+vidc.dec.downscalar_width=1920
+vidc.dec.downscalar_height=1088
+
+# NITZ
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+
+# Perf
+ro.vendor.extension_library=libqti-perfd-client.so
+ro.vendor.at_library=libqti-at.so
+ro.vendor.gt_library=libqti-gt.so
+
+# SAMP SPCM
+sys.config.samp_spcm_enable=true
+sys.config.spcm_db_enable=true
+sys.config.spcm_db_launcher=true
+sys.config.spcm_preload_enable=true
+
+# RIL
+DEVICE_PROVISIONED=1
+persist.cne.feature=0
+persist.radio.apm_sim_not_pwdn=1
+persist.radio.add_power_save=1
+persist.radio.custom_ecc=1
+persist.radio.multisim.config=dsds
+persist.radio.sib16_support=0
+persist.data.netmgrd.qos.enable=false
+persist.data.mode=concurrent
+persist.data.dpm.enable=true
+persist.data.dropssdp=false
+persist.data.ibfc.enable=true
+persist.radio.new.profid=true
+telephony.lteOnGsmDevice=1
+ro.oem_unlock_supported=1
+ro.multisim.simslotcount=2
+ro.multisim.set_audio_params=true
+ro.telephony.ril.config=simactivation
+rild.libpath=/system/lib/libsec-ril.so
+rild.libpath2=/system/lib/libsec-ril-dsds.so
+ro.telephony.ril_class=msm8937RIL
+
+# Time Services
+persist.timed.enable=true
+
+# Trim properties
+ro.sys.fw.use_trim_settings=true
+ro.sys.fw.empty_app_percent=50
+ro.sys.fw.trim_empty_percent=100
+ro.sys.fw.trim_cache_percent=100
+ro.sys.fw.trim_enable_memory=1073741824
+
+# Wi-Fi
+wifi.interface=wlan0
+persist.debug.wfd.enable=1
+persist.sys.wfd.virtual=0
