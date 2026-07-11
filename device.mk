@@ -149,6 +149,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
     $(LOCAL_PATH)/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl
 
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8937
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
