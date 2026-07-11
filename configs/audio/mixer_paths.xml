@@ -2487,5 +2487,111 @@
 
     <path name="dummy">
     </path>
+    <!-- QCOM CAF aliases for source-built audio.primary.msm8937 -->
 
+    <path name="handset-mic">
+        <path name="rec-main-mic" />
+    </path>
+
+    <path name="speaker-mic">
+        <path name="rec-sub-mic" />
+    </path>
+
+    <path name="headset-mic">
+        <path name="rec-headset-mic" />
+    </path>
+
+    <path name="voice-rec-mic">
+        <path name="vr-main-mic" />
+    </path>
+    <!-- Camera / camcorder recording routes for CAF audio.primary -->
+
+    <path name="camcorder-mic">
+        <path name="rec-main-mic" />
+    </path>
+
+    <path name="camcorder-sub-mic">
+        <path name="rec-main-mic" />
+    </path>
+
+    <path name="camcorder-main-mic">
+        <path name="rec-main-mic" />
+    </path>
+
+    <path name="camcorder-stereo-mic">
+        <path name="rec-stereo-mic" />
+    </path>
+ <!-- CAF/QCOM aliases for source-built audio.primary voice call routes -->
+
+    <!-- Voice call RX/output -->
+    <path name="voice-call-tx-main-mic">
+        <ctl name="Voice_Tx Mixer TERT_MI2S_TX_Voice" value="1" />
+        <path name="voice-call-main-mic" />
+    </path>
+
+    <path name="voice-handset">
+        <path name="voice-call-handset" />
+        <path name="voice-call-tx-main-mic" />
+    </path>
+
+    <path name="voice-speaker">
+        <path name="voice-call-speaker" />
+        <path name="voice-call-tx-main-mic" />
+    </path>
+
+    <path name="voice-call-tx-headset-mic">
+        <ctl name="Voice_Tx Mixer TERT_MI2S_TX_Voice" value="1" />
+        <path name="voice-call-headset-mic" />
+    </path>
+
+    <path name="voice-headset">
+        <path name="voice-call-headset" />
+        <path name="voice-call-tx-headset-mic" />
+    </path>
+
+    <path name="voice-headphones">
+        <path name="voice-call-headset" />
+        <path name="voice-call-tx-main-mic" />
+    </path>
+    <!-- Voice call TX/input -->
+    <path name="voice-mic">
+        <path name="voice-call-main-mic" />
+    </path>
+
+    <path name="voice-handset-mic">
+        <path name="voice-call-main-mic" />
+    </path>
+
+    <path name="voice-speaker-mic">
+        <path name="voice-call-main-mic" />
+    </path>
+
+    <path name="voice-headset-mic">
+        <path name="voice-call-headset-mic" />
+    </path>
+
+  <!-- CP2 / second modem aliases -->
+    <path name="voice2-handset">
+        <path name="voice-call-cp2-handset" />
+    </path>
+
+    <path name="voice2-speaker">
+        <path name="voice-call-cp2-speaker" />
+    </path>
+
+    <path name="voice2-headphones">
+        <path name="voice-call-cp2-headset" />
+    </path>
+
+    <path name="voice2-handset-mic">
+        <path name="voice-call-cp2-main-mic" />
+    </path>
+
+    <path name="voice2-speaker-mic">
+        <path name="voice-call-cp2-main-mic" />
+    </path>
+
+    <path name="voice2-headset-mic">
+        <path name="voice-call-cp2-headset-mic" />
+    </path>
 </mixer>
