@@ -1,0 +1,3 @@
+# Legacy time daemon identifies cooperating processes via /proc/<pid>/comm.
+allow time_daemon { rild tee timeservice_app }:dir search;
+allow time_daemon { rild tee timeservice_app }:file r_file_perms;

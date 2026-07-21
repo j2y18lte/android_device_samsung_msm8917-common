@@ -1,6 +1,6 @@
 [
   {
     "repository": "android_kernel_samsung_msm8917",
-    "target_path": "kernel/oneplus/msm8917"
+    "target_path": "kernel/samsung/msm8917"
   }
 ]

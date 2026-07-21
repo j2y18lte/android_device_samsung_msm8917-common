@@ -1,0 +1,19 @@
+# Battery node read by healthd.
+genfscon sysfs /devices/battery/power_supply u:object_r:sysfs_batteryinfo:s0
+
+# SM5703 charger power supplies
+genfscon sysfs /devices/soc/soc:i2c@12/i2c-1/1-0049/sm5703-charger/power_supply u:object_r:sysfs_batteryinfo:s0
+
+# Samsung camera firmware/status nodes and Qualcomm CCI camera subtree.
+genfscon sysfs /devices/virtual/camera u:object_r:sysfs_j2y18_camera:s0
+genfscon sysfs /devices/soc/1b0c000.qcom,cci u:object_r:sysfs_j2y18_camera:s0
+
+# Samsung touchscreen command node.
+genfscon sysfs /devices/virtual/sec/tsp u:object_r:sysfs_j2y18_touchpanel:s0
+
+# SM5703 fuel gauge
+genfscon sysfs /devices/i2c@11/i2c-7/7-0071/power_supply u:object_r:sysfs_batteryinfo:s0
+
+# Qualcomm USB power supply
+genfscon sysfs /devices/soc/78db000.usb/power_supply u:object_r:sysfs_batteryinfo:s0
+

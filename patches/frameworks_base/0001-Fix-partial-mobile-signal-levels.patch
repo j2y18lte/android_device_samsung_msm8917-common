@@ -1,0 +1,41 @@
+diff --git a/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java b/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
+index 846e30d5006..4765e2384e6 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
++++ b/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
+@@ -250,6 +250,8 @@ public class SignalDrawable extends Drawable {
+
+         final float padding = Math.round(PAD * width);
+         final float cornerRadius = RADIUS_RATIO * height;
++        boolean drawSignalFill = false;
++        float signalRight = padding;
+         // Offset from circle where the hypotenuse meets the circle
+         final float diagOffset = DIAG_OFFSET_MULTIPLIER * cornerRadius;
+
+@@ -344,12 +346,22 @@ public class SignalDrawable extends Drawable {
+         } else if (mState != STATE_CARRIER_CHANGE) {
+             mForegroundPath.reset();
+-            int sigWidth = Math.round(calcFit(mLevel / (mNumLevels - 1)) * (width - 2 * padding));
+-            mForegroundPath.addRect(padding, padding, padding + sigWidth, height - padding,
+-                    Direction.CW);
+-            mForegroundPath.op(mFullPath, Op.INTERSECT);
++            final float normalizedLevel = mNumLevels > 1
++                    ? mLevel / (mNumLevels - 1)
++                    : 0f;
++            final float fittedLevel = Math.max(0f,
++                    Math.min(1f, calcFit(normalizedLevel)));
++            signalRight = padding + fittedLevel * (width - 2 * padding);
++            drawSignalFill = true;
+         }
+
+         canvas.drawPath(mFullPath, mPaint);
+-        canvas.drawPath(mForegroundPath, mForegroundPaint);
++        if (drawSignalFill) {
++            final int saveCount = canvas.save();
++            canvas.clipRect(padding, padding, signalRight, height - padding);
++            canvas.drawPath(mFullPath, mForegroundPaint);
++            canvas.restoreToCount(saveCount);
++        } else {
++            canvas.drawPath(mForegroundPath, mForegroundPaint);
++        }
+         if (mState == STATE_CUT) {
+             mXPath.reset();

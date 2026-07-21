@@ -1,0 +1,21 @@
+# Do not allow ro.alarm_boot: the log confirms it was already set and immutable.
+set_prop(qti_init_shell, j2y18_usb_rps_prop)
+set_prop(qti_init_shell, j2y18_usb_config_extra_prop)
+
+# Qualcomm modem configuration directory.
+allow qti_init_shell vendor_radio_data_file:dir {
+    add_name
+    create
+    getattr
+    open
+    read
+    search
+    setattr
+    write
+};
+
+allow qti_init_shell vendor_radio_data_file:file create_file_perms;
+allow qti_init_shell vendor_radio_data_file:file getattr;
+
+# Configure USB mass-storage FUA behavior.
+allow qti_init_shell sysfs_j2y18_usb_nofua:file { open write };

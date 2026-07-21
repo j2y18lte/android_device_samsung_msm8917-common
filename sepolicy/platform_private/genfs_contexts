@@ -1,0 +1,8 @@
+# Internal eMMC information consumed by storaged.
+genfscon sysfs /devices/soc/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/stat u:object_r:sysfs_j2y18_storage_stat:s0
+genfscon sysfs /devices/soc/7824900.sdhci/mmc_host/mmc0/mmc0:0001/rev u:object_r:sysfs_j2y18_storage_stat:s0
+genfscon sysfs /devices/soc/7824900.sdhci/mmc_host/mmc0/mmc0:0001/pre_eol_info u:object_r:sysfs_j2y18_storage_stat:s0
+genfscon sysfs /devices/soc/7824900.sdhci/mmc_host/mmc0/mmc0:0001/life_time u:object_r:sysfs_j2y18_storage_stat:s0
+
+# Samsung mDNIe display scenario
+genfscon sysfs /devices/virtual/mdnie/mdnie/scenario u:object_r:sysfs_j2y18_mdnie:s0

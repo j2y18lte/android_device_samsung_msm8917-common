@@ -1,0 +1,5 @@
+# Samsung private HIDL services absent from AOSP hwservice contexts.
+type j2y18_sec_gnss_hwservice, hwservice_manager_type;
+type j2y18_sec_radio_channel_hwservice, hwservice_manager_type;
+type j2y18_sec_radio_config_hwservice, hwservice_manager_type;
+type j2y18_sec_vibrator_hwservice, hwservice_manager_type;

@@ -1,0 +1,2 @@
+# Thermal engine searches Samsung power-supply nodes.
+allow thermal-engine sysfs_batteryinfo:dir search;

@@ -1,0 +1,25 @@
+# Legacy camera daemon sockets.
+allow mm-qcamerad camera_data_file:dir { add_name remove_name write };
+allow mm-qcamerad camera_data_file:sock_file { create unlink };
+
+# Samsung camera firmware/status sysfs.
+allow mm-qcamerad sysfs_j2y18_camera:dir search;
+allow mm-qcamerad sysfs_j2y18_camera:file rw_file_perms;
+
+allow hal_camera_default sysfs_j2y18_camera:dir search;
+allow hal_camera_default sysfs_j2y18_camera:file r_file_perms;
+
+# Camera provider writes to the legacy daemon socket.
+allow hal_camera_default camera_data_file:sock_file write;
+
+set_prop(mm-qcamerad, j2y18_camera_debug_prop)
+set_prop(hal_camera_default, j2y18_camera_service_prop)
+
+# Camera property reads
+get_prop(mm-qcamerad, j2y18_camera_service_prop)
+get_prop(hal_camera_default, j2y18_camera_debug_prop)
+
+# Samsung face-detection album2y18_camera_debug_prop)
+
+# Samsung face-detection album
+allow mm-qcamerad camera_data_file:file create_file_perms;

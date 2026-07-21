@@ -56,6 +56,8 @@ service mfgloader /system/vendor/bin/hw/mfgloader
 
 service macloader /system/vendor/bin/macloader
     class main
+    user root
+    group root system wifi
     oneshot
 
 # end of WiFi MFG (TestMode)

@@ -1,0 +1,15 @@
+# Samsung operator-name SQLite database.
+allow rild j2y18_sec_radio_data_file:dir create_dir_perms;
+allow rild j2y18_sec_radio_data_file:file create_file_perms;
+allow rild j2y18_sec_radio_data_file:file { lock map ioctl };
+
+# Samsung preconfiguration marker.
+allow rild system_data_file:dir { search write add_name };
+type_transition rild system_data_file:file j2y18_radio_marker_file "preconfiged";
+allow rild j2y18_radio_marker_file:file create_file_perms;
+
+# Samsung private radio channel HIDL service.
+allow rild j2y18_sec_radio_channel_hwservice:hwservice_manager add;
+
+# Samsung RIL configures IPv6 parameters for mobile interfaces.
+allow rild proc_net:file write;

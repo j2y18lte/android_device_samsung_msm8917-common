@@ -51,7 +51,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Boot
 PRODUCT_PROPERTY_OVERRIDES += \
-    sys.vendor.shutdown.waittime=500 \
+    sys.vendor.shutdown.waittime=500
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -61,11 +61,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd \
     vendor.qcom.bluetooth.soc=smd
 
-# Cne/Dpm
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.cne.feature=1 \
-    persist.dpm.feature=1
-
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
@@ -73,20 +68,22 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240
 
-# FRP
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.frp.pst=/dev/block/persistent
-
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_hwc_vds=1 \
     debug.sf.hw=0 \
     debug.sf.latch_unsignaled=1 \
     debug.egl.hw=0 \
-    debug.gralloc.enable_fb_ubwc=1 \
     ro.opengles.version=196608 \
+    persist.graphics.vulkan.disable=true \
     sdm.debug.disable_skip_validate=1 \
-    sys.disable_ext_animation=1
+    sys.disable_ext_animation=1 \
+    debug.gralloc.enable_fb_ubwc=0 \
+    debug.gralloc.disable_ubwc=1 \
+    debug.gralloc.gfx_ubwc_disable=1 \
+    vendor.gralloc.enable_fb_ubwc=0 \
+    vendor.gralloc.disable_ubwc=1 \
+    vendor.gralloc.gfx_ubwc_disable=1
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -119,33 +116,37 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=libqti-perfd-client.so
 
-# Post-processing
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.display.enable_default_color_mode=1
-
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.cne.feature=0 \
     persist.data.dpm.enable=true \
     persist.data.dropssdp=false \
     persist.data.ibfc.enable=true \
-    persist.data.mode=concurrent \
     persist.data.netmgrd.qos.enable=false \
     persist.radio.atfwd.start=true \
-    persist.radio.multisim.config=ss \
+    persist.radio.multisim.config=dsds \
     persist.radio.sib16_support=1 \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.rat_on=combine \
     persist.vendor.radio.sib16_support=1 \
-    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
-    ro.multisim.simslotcount=1 \
-    ro.radio.noril=no \
-    ro.telephony.default_cdma_sub=1 \
+    ro.ril.telephony.mqanelements=6 \
+    ro.telephony.ril.config=simactivation \
+    telephony.lteOnCdmaDevice=0 \
+    telephony.lteOnGsmDevice=1 \
+    ro.multisim.audio_follow_default_sim=false \
+    rild.libpath=/vendor/lib/libsec-ril.so \
+    rild.libpath2=/vendor/lib/libsec-ril-dsds.so \
+    ro.multisim.simslotcount=2 \
     ro.telephony.default_network=10 \
-    ro.use_data_netmgrd=true \
-    telephony.lteOnCdmaDevice=1
+    ro.use_data_netmgrd=true
 
 # Samsung Specific
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.debug_level=0x4f4d \
     ro.product_ship=true
+
+# Samsung-Specific RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.sec.rild.libpath=/vendor/lib/libsec-ril.so \
+    vendor.sec.rild.libpath2=/vendor/lib/libsec-ril-dsds.so

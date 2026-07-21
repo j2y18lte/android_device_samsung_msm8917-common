@@ -1,0 +1,14 @@
+# j2y18lte-specific executable, data and sysfs types.
+
+type j2y18_sec_vibrator_exec, exec_type, vendor_file_type, file_type;
+type j2y18_sec_radio_config_exec, exec_type, vendor_file_type, file_type;
+type j2y18_macloader_exec, exec_type, vendor_file_type, file_type;
+
+type j2y18_sec_radio_data_file, file_type, data_file_type;
+type j2y18_radio_marker_file, file_type, data_file_type, core_data_file_type;
+
+type sysfs_j2y18_camera, fs_type, sysfs_type;
+type sysfs_j2y18_touchpanel, fs_type, sysfs_type;
+
+type sysfs_j2y18_usb_nofua, fs_type, sysfs_type;
+

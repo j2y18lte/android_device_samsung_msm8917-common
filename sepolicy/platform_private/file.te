@@ -1,0 +1,6 @@
+# Platform-private types used only by core Android daemons.
+
+type sysfs_j2y18_storage_stat, fs_type, sysfs_type;
+type j2y18_prox_cal_file, file_type;
+
+type sysfs_j2y18_mdnie, fs_type, sysfs_type, mlstrustedobject;

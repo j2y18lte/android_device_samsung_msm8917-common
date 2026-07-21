@@ -1,0 +1,2 @@
+# Update /mnt/vendor/.../.wifichipset.info metadata.
+allow wcnss_service mnt_vendor_file:file setattr;

@@ -1,0 +1,2 @@
+# Samsung proximity calibration read by system_server.
+/efs/FactoryApp/prox_cal u:object_r:j2y18_prox_cal_file:s0

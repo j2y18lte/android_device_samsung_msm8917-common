@@ -1,0 +1,2 @@
+# Optional modem secure debug policy partition
+type msadp_block_device, dev_type;

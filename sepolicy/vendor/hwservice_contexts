@@ -1,0 +1,4 @@
+vendor.samsung.hardware.gnss::ISecGnss            u:object_r:j2y18_sec_gnss_hwservice:s0
+vendor.samsung.hardware.radio.channel::ISecChannel      u:object_r:j2y18_sec_radio_channel_hwservice:s0
+vendor.samsung.hardware.vibrator::ISecVibrator          u:object_r:j2y18_sec_vibrator_hwservice:s0
+vendor.samsung.hardware.radio.configsvc::IConfigSvc      u:object_r:j2y18_sec_radio_config_hwservice:s0

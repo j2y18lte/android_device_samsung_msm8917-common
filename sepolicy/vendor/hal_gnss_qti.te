@@ -1,0 +1,2 @@
+allow hal_gnss_qti j2y18_sec_gnss_hwservice:hwservice_manager { add find };
+allow hal_gnss_qti sysfs_batteryinfo:dir search;

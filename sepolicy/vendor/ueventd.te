@@ -1,0 +1,4 @@
+# The kernel requests the optional msadp debug policy as firmware.
+# Android forbids ueventd from reading block devices, and the modem
+# explicitly continues when this policy is unavailable.
+dontaudit ueventd msadp_block_device:blk_file { open read };

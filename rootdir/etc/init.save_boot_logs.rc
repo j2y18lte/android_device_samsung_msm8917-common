@@ -1,0 +1,13 @@
+on property:sys.boot_completed=1
+    write /dev/kmsg "SAVE_BOOT_LOGS_RC: sys.boot_completed=1"
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
+    mkdir /data/local/tmp/log 0777 root root
+    start save_boot_logs
+
+service save_boot_logs /system/bin/sh /system/bin/save_boot_logs.sh
+    class late_start
+    user root
+    group root system log readproc shell sdcard_rw
+    oneshot
+    disabled

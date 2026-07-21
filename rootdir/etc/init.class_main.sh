@@ -32,23 +32,13 @@
 #
 baseband=`getprop ro.baseband`
 sgltecsfb=`getprop persist.vendor.radio.sglte_csfb`
-datamode=`getprop persist.data.mode`
+datamode=`getprop persist.vendor.data.mode`
 
 case "$baseband" in
-    "apq" | "sda" )
-    setprop ro.radio.noril yes
-    stop ril-daemon
-esac
+    "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3" | "sdm" | "sdx" | "sm6")
 
-case "$baseband" in
-    "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3")
-    start qmuxd
-esac
-
-case "$baseband" in
-    "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3" | "sdm" | "sdx")
-    start ipacm-diag
-    start ipacm
+    start vendor.ipacm-diag
+    start vendor.ipacm
     case "$baseband" in
         "svlte2a" | "csfb")
           start qmiproxy
@@ -60,42 +50,31 @@ case "$baseband" in
               setprop persist.vendor.radio.voice.modem.index 0
           fi
         ;;
-        "dsda2")
-          setprop persist.radio.multisim.config dsda
     esac
-
-    multisim=`getprop persist.radio.multisim.config`
-
-#< RNTFIX
-#    if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
-#        start ril-daemon2
-#    elif [ "$multisim" = "tsts" ]; then
-#        start ril-daemon2
-#        start ril-daemon3
-#    fi
-#> RNTFIX
 
     case "$datamode" in
         "tethered")
-            start qti
-            start port-bridge
+            start vendor.dataqti
+            start vendor.dataadpl
+            start vendor.port-bridge
             ;;
         "concurrent")
-            start qti
-            start netmgrd
-            start port-bridge
+            start vendor.dataqti
+            start vendor.dataadpl
+            start vendor.netmgrd
+            start vendor.port-bridge
             ;;
-        *)
-            start netmgrd
+            *)
+            start vendor.netmgrd
             ;;
     esac
 esac
 
 #
 # Allow persistent faking of bms
-# User needs to set fake bms charge in persist.bms.fake_batt_capacity
+# User needs to set fake bms charge in persist.vendor.bms.fake_batt_capacity
 #
-fake_batt_capacity=`getprop persist.bms.fake_batt_capacity`
+fake_batt_capacity=`getprop persist.vendor.bms.fake_batt_capacity`
 case "$fake_batt_capacity" in
     "") ;; #Do nothing here
     * )

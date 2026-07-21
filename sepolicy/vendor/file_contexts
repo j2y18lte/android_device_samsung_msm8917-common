@@ -1,0 +1,22 @@
+# HAL/service executable domain transitions.
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung          u:object_r:hal_lineage_touch_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.vibrator@1\.0-service     u:object_r:j2y18_sec_vibrator_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.radio\.configsvc@1\.0-service u:object_r:j2y18_sec_radio_config_exec:s0
+/(vendor|system/vendor)/bin/macloader                                                u:object_r:j2y18_macloader_exec:s0
+
+# Samsung RIL private database.
+/data/vendor/secradio(/.*)?                                                          u:object_r:j2y18_sec_radio_data_file:s0
+
+# RIL marker file.
+/data/misc/radio/preconfiged                                                         u:object_r:j2y18_radio_marker_file:s0
+
+# Samsung Lights HAL
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.samsung       u:object_r:hal_light_default_exec:s0
+
+# Optional modem debug policy partition
+/dev/block/mmcblk0p17                                           u:object_r:msadp_block_device:s0
+/dev/block/by-name/msadp                                        u:object_r:msadp_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/mmcblk0p17               u:object_r:msadp_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/msadp            u:object_r:msadp_block_device:s0
+
+/dev/socket/sap_uim_socket1                        u:object_r:rild_socket:s0

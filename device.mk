@@ -29,17 +29,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml \
@@ -56,7 +50,6 @@ TARGET_SCREEN_WIDTH := 540
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.primary.msm8937 \
     audio.primary.default \
     audio.r_submix.default \
     audio.a2dp.default \
@@ -84,15 +77,17 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@4.0-impl
 
 PRODUCT_COPY_FILES += \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_tuning_mixer.txt:$(TARGET_COPY_OUT_VENDOR)/etc/audio_tuning_mixer.txt \
     hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_output_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_output_policy.conf \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info.xml \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_platform_info_extcodec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_extcodec.xml \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/audio_policy_configuration.xml
+    hardware/qcom/audio-caf/msm8996/configs/msm8937/audio_platform_info_extcodec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_extcodec.xml
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    $(LOCAL_PATH)/configs/audio/audio_effects_common.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects_common.conf \
+    $(LOCAL_PATH)/configs/audio/audio_effects_sec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects_sec.xml \
+    $(LOCAL_PATH)/configs/audio/audio_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info.xml \
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths.xml
 
 PRODUCT_COPY_FILES += \
@@ -121,13 +116,24 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-     Snap
-
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl \
+    Snap \
+    android.frameworks.displayservice@1.0 \
+    android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
-    libjpega \
-    libshims_camera
+    libcamera_shim \
+    libshim_mutexdestroy \
+    libgui_vendor \
+    vendor.qti.hardware.camera.device@1.0
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/camera/N05QL_s5k5e3yx_module_info.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/N05QL_s5k5e3yx_module_info.xml \
+    $(LOCAL_PATH)/camera/Y08QF_sr846_chromatix.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/Y08QF_sr846_chromatix.xml \
+    $(LOCAL_PATH)/camera/Y08QF_sr846_module_info.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/Y08QF_sr846_module_info.xml \
+    $(LOCAL_PATH)/camera/msm8917_camera_j2y18.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/msm8917_camera_j2y18.xml \
+    $(LOCAL_PATH)/camera/s5k5e3yx_chromatix.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/s5k5e3yx_chromatix.xml \
+    $(LOCAL_PATH)/camera/s5k5e3yx_f2_2_chromatix.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/s5k5e3yx_f2_2_chromatix.xml \
+    $(LOCAL_PATH)/camera/s5k5e3yx_f2_2_chromatix_j3y17.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/s5k5e3yx_f2_2_chromatix_j3y17.xml \
+    $(LOCAL_PATH)/camera/sr846_chromatix.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/camera/sr846_chromatix.xml
 
 # Display/Graphics
 PRODUCT_PACKAGES += \
@@ -138,8 +144,10 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    android.hardware.configstore@1.0-service
+    android.hardware.configstore@1.0-service \
+    vendor.display.config@1.2
 
+# Display
 PRODUCT_PACKAGES += \
     AdvancedDisplay \
     gralloc.msm8937 \
@@ -148,12 +156,9 @@ PRODUCT_PACKAGES += \
     libdisplayconfig \
     libqdMetaData \
     libqdMetaData.system \
+    libqservice \
     libtinyxml
-
-# Doze mode
-PRODUCT_PACKAGES += \
-    SamsungDoze
-
+    
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
@@ -179,7 +184,7 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl-qti \
-    gps.msm8953 \
+    gps.msm8937 \
     libcurl \
     libgnss \
     libgnsspps
@@ -277,9 +282,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
-
 # Qualcomm
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
@@ -292,7 +294,6 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    init.carrier.rc \
     init.class_main.sh \
     init.qcom.early_boot.sh \
     init.qcom.factory.rc \
@@ -305,13 +306,14 @@ PRODUCT_PACKAGES += \
     init.qti.fm.sh \
     init.qti.ims.sh \
     init.recovery.qcom.rc \
-    init.rilcarrier.rc \
-    init.rilchip.rc \
-    init.rilcommon.rc \
     init.samsung.rc \
     init.target.rc \
     init.wifi.rc \
     ueventd.qcom.rc
+
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/rootdir/etc/init.save_boot_logs.rc:system/vendor/etc/init/hw/init.save_boot_logs.rc \
+#    $(LOCAL_PATH)/rootdir/etc/save_boot_logs.sh:system/bin/save_boot_logs.sh
 
 # RCS
 PRODUCT_PACKAGES += \
@@ -326,23 +328,20 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.2 \
+    rild \
+    libril \
+    libsecril-client \
+    libsecril-client-sap \
     android.hardware.radio.config@1.0 \
-    android.hardware.secure_element@1.0 \
     librmnetctl \
-    libcnefeatureconfig \
     libxml2 \
-    telephony-ext
-
-PRODUCT_BOOT_JARS += \
-    telephony-ext
+    libprotobuf-cpp-full \
+    libshims_ril
 
 PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v27/arm64/arch-arm-armv7-a-neon/shared/vndk-core/android.hardware.gnss@1.0.so:system/lib/android.hardware.gn27@1.0.so \
-    prebuilts/vndk/v27/arm64/arch-arm64-armv8-a/shared/vndk-core/android.hardware.gnss@1.0.so:system/lib64/android.hardware.gn27@1.0.so \
-    prebuilts/vndk/v27/arm64/arch-arm-armv7-a-neon/shared/vndk-core/android.hardware.camera.device@3.2.so:system/lib/android.hardware.camera.devi27@3.2.so \
-    prebuilts/vndk/v27/arm64/arch-arm-armv7-a-neon/shared/vndk-sp/android.hardware.graphics.common@1.0.so:system/lib/android.hardware.grahpics.comm27@1.0.so
-
+    $(LOCAL_PATH)/configs/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
+    $(LOCAL_PATH)/configs/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml
+	
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl
@@ -352,6 +351,13 @@ PRODUCT_PACKAGES += \
 
 # System Properties
 -include $(LOCAL_PATH)/system_prop.mk
+
+# Telephony
+PRODUCT_PACKAGES += \
+    telephony-ext
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
@@ -394,11 +400,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_wlan_nv.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=adb \
-    persist.service.adb.enable=1 \
-    ro.secure=0 \
-    ro.allow.mock.location=1 \
-    ro.debuggable=1 \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.adb.secure=0 \
-    ro.oem_unlock_supported=1
+    sys.usb.configfs=0
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp,adb
+

@@ -1,0 +1,11 @@
+type j2y18_sec_vibrator, domain;
+init_daemon_domain(j2y18_sec_vibrator)
+
+hal_server_domain(j2y18_sec_vibrator, hal_vibrator)
+hwbinder_use(j2y18_sec_vibrator)
+
+allow j2y18_sec_vibrator sysfs_vibrator:file rw_file_perms;
+
+allow j2y18_sec_vibrator hal_vibrator_hwservice:hwservice_manager add;
+allow j2y18_sec_vibrator hidl_base_hwservice:hwservice_manager add;
+allow j2y18_sec_vibrator j2y18_sec_vibrator_hwservice:hwservice_manager add;

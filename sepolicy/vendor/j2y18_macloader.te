@@ -1,0 +1,25 @@
+type j2y18_macloader, domain;
+init_daemon_domain(j2y18_macloader)
+
+# Standard Samsung macloader access pattern.
+allow j2y18_macloader self:capability { chown fowner fsetid };
+allow j2y18_macloader self:process execmem;
+
+allow j2y18_macloader efs_file:dir r_dir_perms;
+allow j2y18_macloader efs_file:file r_file_perms;
+
+allow j2y18_macloader wifi_data_file:dir create_dir_perms;
+allow j2y18_macloader wifi_data_file:file create_file_perms;
+
+allow j2y18_macloader sysfs_net:dir search;
+allow j2y18_macloader sysfs_net:file rw_file_perms;
+
+# Read Samsung Wi-Fi MAC files from EFS.
+allow j2y18_macloader efs_file:dir {
+    getattr
+    open
+    read
+    search
+};
+
+allow j2y18_macloader efs_file:file r_file_perms;

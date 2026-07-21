@@ -17,11 +17,6 @@ DEVICE_PATH := device/samsung/j2y18lte
 
 BOARD_VENDOR := samsung
 
-# API Override
-TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /vendor/bin/mm-qcamera-daemon=27 \
-    /system/vendor/bin/mm-qcamera-daemon=27
-
 # Assertions
 TARGET_OTA_ASSERT_DEVICE := j2y18lte,SM-J250F,J250F
 
@@ -45,13 +40,15 @@ BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := kernel/samsung/msm8937
+BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_KERNEL_ARCH := arm
+TARGET_KERNEL_SOURCE := kernel/samsung/msm8917
 TARGET_KERNEL_CONFIG := j2y18lte_defconfig
 
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000 --board SRPPI22A002KU
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000 --board SRPQH15A000KU
 
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
@@ -61,32 +58,6 @@ BOARD_USES_QC_TIME_SERVICES := true
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
-AUDIO_FEATURE_ENABLED_AAC_ADTS_OFFLOAD := true
-AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
-AUDIO_FEATURE_ENABLED_ALAC_OFFLOAD := true
-AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
-AUDIO_FEATURE_ENABLED_APE_OFFLOAD := true
-AUDIO_FEATURE_ENABLED_AUDIOSPHERE := true
-AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
-AUDIO_FEATURE_ENABLED_EXTN_FLAC_DECODER := true
-AUDIO_FEATURE_ENABLED_EXTN_FORMATS := true
-AUDIO_FEATURE_ENABLED_FLUENCE := true
-AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
-AUDIO_FEATURE_ENABLED_HFP := true
-AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
-AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
-AUDIO_FEATURE_ENABLED_PCM_OFFLOAD_24 := true
-AUDIO_FEATURE_ENABLED_PCM_OFFLOAD := true
-AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
-AUDIO_FEATURE_ENABLED_RECORD_PLAY_CONCURRENCY := true
-AUDIO_FEATURE_ENABLED_SND_MONITOR := true
-AUDIO_FEATURE_ENABLED_SOURCE_TRACKING := true
-AUDIO_FEATURE_ENABLED_VBAT_MONITOR := true
-AUDIO_FEATURE_ENABLED_VOICE_CONCURRENCY :=true
-AUDIO_FEATURE_ENABLED_VORBIS_OFFLOAD := true
-AUDIO_FEATURE_ENABLED_WMA_OFFLOAD := true
-AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
-BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := true
 TARGET_USES_QCOM_MM_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
@@ -99,18 +70,18 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
 
 # Camera
-BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_USES_MEDIA_EXTENSIONS := true
+MALLOC_SVELTE_FOR_LIBC32 := true
+TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
+    /vendor/bin/mm-qcamera-daemon=27
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE   := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-
-# CNE / DPM
-BOARD_USES_QCNE := true
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
@@ -122,27 +93,13 @@ TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 # Display
 BOARD_USES_ADRENO := true
 TARGET_USES_ION := true
-TARGET_USES_OVERLAY := true
-USE_OPENGL_RENDERER := true
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_GRALLOC1 := true
+TARGET_USES_HWC2 := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
-TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-TARGET_USES_HWC2 := true
-TARGET_USES_C2D_COMPOSITION := true
-TARGET_USES_GRALLOC1 := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-# Enable dexpreopt to speed boot time
-#ifeq ($(HOST_OS),linux)
-#  ifneq ($(TARGET_BUILD_VARIANT),eng)
-#    ifeq ($(WITH_DEXPREOPT),)
-#      WITH_DEXPREOPT := true
-#      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
-#    endif
-#  endif
-#endif
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
@@ -155,15 +112,12 @@ BOARD_HAVE_QCOM_FM := true
 USE_DEVICE_SPECIFIC_GPS := true
 TARGET_NO_RPC := true
 
-# Headers
-TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
-
 # Images
 TARGET_NO_BOOTLOADER := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_j7popltespr
-TARGET_RECOVERY_DEVICE_MODULES := libinit_j7popltespr
+TARGET_INIT_VENDOR_LIB := libinit_msm8937
+TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8937
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
 # Keystore
@@ -179,7 +133,6 @@ MALLOC_SVELTE := true
 
 # Media
 BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
-TARGET_USES_MEDIA_EXTENSIONS := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
@@ -202,8 +155,11 @@ TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 
 # RIL
-TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
-TARGET_RIL_VARIANT := caf
+BOARD_PROVIDES_LIBRIL := true
+BOARD_MODEM_TYPE := msm8917
+PROTOBUF_SUPPORTED := true
+TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
+
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
@@ -214,13 +170,15 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-
-#BOARD_SEPOLICY_DIRS += \
-#    $(DEVICE_PATH)/sepolicy
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/platform_private
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-     /system/vendor/lib/hw/camera.msm8937.so|libshims_camera.so 
+    /system/vendor/bin/mm-qcamera-daemon|libshim_mutexdestroy.so \
+    /system/vendor/lib/hw/camera.msm8937.so|libcamera_shim.so \
+    /system/vendor/lib/libsec-ril.so|libshims_ril.so \
+    /system/vendor/lib/libsec-ril-dsds.so|libshims_ril.so
 
 # Snapdragon LLVM
 TARGET_USE_SDCLANG := true
@@ -245,4 +203,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_HAVE_SAMSUNG_WIFI := true
 
 # inherit from the proprietary version
--include vendor/samsung/j7popltespr/BoardConfigVendor.mk
+-include vendor/samsung/j2y18lte/BoardConfigVendor.mk

@@ -1,0 +1,2 @@
+# Lineage Samsung display settings
+allow system_app sysfs_j2y18_mdnie:file rw_file_perms;

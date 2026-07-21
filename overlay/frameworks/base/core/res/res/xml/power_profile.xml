@@ -25,56 +25,23 @@
     </array>
     <array name="cpu.clusters.cores">
         <value>4</value>
-        <value>4</value>
     </array>
     <array name="cpu.core_power.cluster0">
-        <value>21</value>
-        <value>36</value>
+        <value>33</value>
+        <value>39</value>
+        <value>47</value>
         <value>55</value>
-        <value>79</value>
-        <value>105</value>
-        <value>112</value>
-        <value>119</value>
-        <value>143</value>
-        <value>150</value>
     </array>
     <array name="cpu.core_speeds.cluster0">
-        <value>652800</value>
-        <value>1036800</value>
-        <value>1401600</value>
-        <value>1689600</value>
-        <value>1843200</value>
-        <value>1958400</value>
-        <value>2016000</value>
-        <value>2150400</value>
-        <value>2208000</value>
-    </array>
-    <array name="cpu.core_power.cluster1">
-        <value>21</value>
-        <value>36</value>
-        <value>55</value>
-        <value>79</value>
-        <value>105</value>
-        <value>112</value>
-        <value>119</value>
-        <value>143</value>
-        <value>150</value>
-    </array>
-    <array name="cpu.core_speeds.cluster1">
-        <value>652800</value>
-        <value>1036800</value>
-        <value>1401600</value>
-        <value>1689600</value>
-        <value>1843200</value>
-        <value>1958400</value>
-        <value>2016000</value>
-        <value>2150400</value>
-        <value>2208000</value>
+        <value>960000</value>
+        <value>1094400</value>
+        <value>1248000</value>
+        <value>1401000</value>
     </array>
     <item name="cpu.idle">2.7</item>
     <item name="cpu.awake">13</item>
     <item name="wakeup.power">0.15</item>
-  <item name="battery.capacity">2600</item>
+    <item name="battery.capacity">2600</item>
     <array name="wifi.batchedscan">
         <value>.0002</value>
         <value>.002</value>

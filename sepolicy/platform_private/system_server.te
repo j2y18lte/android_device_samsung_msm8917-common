@@ -1,0 +1,2 @@
+# Samsung proximity calibration.
+allow system_server j2y18_prox_cal_file:file r_file_perms;

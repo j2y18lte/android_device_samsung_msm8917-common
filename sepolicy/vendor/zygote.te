@@ -1,0 +1,2 @@
+# Samsung/Qualcomm runtime boot-mode detection.
+allow zygote proc_cmdline:file r_file_perms;

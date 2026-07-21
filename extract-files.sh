@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=msm8937
+DEVICE=j2y18lte
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks
@@ -61,16 +61,13 @@ fi
 
 function blob_fixup() {
         case "${1}" in
-        vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so | vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so)
+        vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so)
                 sed -i -e 's|vendor.qti.hardware.fm@1.0_vendor.so|vendor.qti.hardware.fm@1.0.so\x0\x0\x0\x0\x0\x0\x0|g' "${2}"
-        ;;
-        vendor/lib64/libsecureui_svcsock.so)
-                sed -i -e 's|vendor.qti.hardware.tui_comm@1.0_vendor.so|vendor.qti.hardware.tui_comm@1.0.so\x0\x0\x0\x0\x0\x0\x0|g' "${2}"
         ;;
         vendor/bin/hw/vendor.samsung.hardware.vibrator@1.0-service)
                 sed -i -e 's|vendor.samsung.hardware.vibrator@1.0_vendor.so|vendor.samsung.hardware.vibrator@1.0.so\x0\x0\x0\x0\x0\x0\x0|g' "${2}"
         ;;
-        vendor/lib/hw/com.qualcomm.qti.ant@1.0-impl.so | vendor/lib64/hw/com.qualcomm.qti.ant@1.0-impl.so)
+        vendor/lib/hw/com.qualcomm.qti.ant@1.0-impl.so)
                 sed -i -e 's|com.qualcomm.qti.ant@1.0_vendor.so|com.qualcomm.qti.ant@1.0.so\x0\x0\x0\x0\x0\x0\x0|g' "${2}"
         ;;
         esac

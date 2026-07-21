@@ -1,0 +1,4 @@
+allow hal_bluetooth_qti efs_file:dir search;
+allow hal_bluetooth_qti efs_file:file r_file_perms;
+
+set_prop(hal_bluetooth_qti, j2y18_bluetooth_fw_prop)

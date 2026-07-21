@@ -150,19 +150,10 @@ case "$usb_config" in
 		          setprop persist.sys.usb.config diag,serial_smd,rmnet_qti_bam,adb
 		      ;;
 	              "msm8937")
-			      if [ -d /config/usb_gadget ]; then
-				      setprop persist.sys.usb.config diag,serial_cdev,rmnet,dpl,adb
-			      else
-				      case "$soc_id" in
-					"313" | "320")
-				            setprop persist.sys.usb.config diag,serial_smd,rmnet_ipa,adb
-				        ;;
-				        *)
-				            setprop persist.sys.usb.config diag,serial_smd,rmnet_qti_bam,adb
-				        ;;
-				      esac
-			      fi
-		      ;;
+          # j2y18lte: normal Android USB default.
+          # Diagnostic compositions remain available when explicitly requested.
+          setprop persist.sys.usb.config mtp,adb
+      ;;
 	              "msm8952")
 		         # setprop persist.sys.usb.config diag,serial_smd,rmnet_ipa,adb
 		           setprop persist.sys.usb.config mtp,adb
