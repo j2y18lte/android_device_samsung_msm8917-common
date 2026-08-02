@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The proprietary aptX-HD encoder is not present. -->
+    <integer name="a2dp_source_codec_priority_aptx_hd">-1</integer>
+</resources>

@@ -1,3 +1,6 @@
 # Samsung sales-code audio configuration
-allow hal_audio_default efs_file:file r_file_perms;
 set_prop(hal_audio_default, audio_prop)
+
+# Read Samsung sales code used by the proprietary audio HAL.
+allow hal_audio_default imei_efs_file:dir search;
+allow hal_audio_default imei_efs_file:file r_file_perms;

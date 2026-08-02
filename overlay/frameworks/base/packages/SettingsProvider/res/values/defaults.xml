@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Enable vibration together with ringtone by default -->
+    <bool name="def_vibrate_when_ringing">true</bool>
+</resources>

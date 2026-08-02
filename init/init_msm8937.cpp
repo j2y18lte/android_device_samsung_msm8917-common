@@ -27,40 +27,35 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <fcntl.h>
+#include <cstdio>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <fcntl.h>
 
 #include <android-base/file.h>
-#include <android-base/logging.h>
 #include <android-base/properties.h>
 #include <android-base/strings.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
 
-#include "init_msm8937.h"
-
 using android::base::GetProperty;
 using android::base::ReadFileToString;
 using android::base::Trim;
 using android::init::property_set;
 
-__attribute__ ((weak))
-void init_target_properties()
-{
-}
-
 static void init_alarm_boot_properties()
 {
     char const *boot_reason_file = "/proc/sys/kernel/boot_reason";
+    char const *power_off_alarm_file = "/persist/alarm/powerOffAlarmSet";
     std::string boot_reason;
-    std::string tmp = GetProperty("ro.boot.alarmboot","");
+    std::string power_off_alarm;
+    std::string reboot_reason = GetProperty("ro.boot.alarmboot", "");
 
-    if (ReadFileToString(boot_reason_file, &boot_reason)) {
+    if (ReadFileToString(boot_reason_file, &boot_reason)
+            && ReadFileToString(power_off_alarm_file, &power_off_alarm)) {
         /*
          * Setup ro.alarm_boot value to true when it is RTC triggered boot up
          * For existing PMIC chips, the following mapping applies
@@ -76,17 +71,16 @@ static void init_alarm_boot_properties()
          * 7 -> CBLPWR_N pin toggled (for external power supply)
          * 8 -> KPDPWR_N pin toggled (power key pressed)
          */
-        if (Trim(boot_reason) == "3" || tmp == "true")
-            property_set("ro.alarm_boot", "true");
-        else
-            property_set("ro.alarm_boot", "false");
+         if ((Trim(boot_reason) == "3" || reboot_reason == "true")
+                 && Trim(power_off_alarm) == "1") {
+             property_set("ro.alarm_boot", "true");
+         } else {
+             property_set("ro.alarm_boot", "false");
+         }
     }
 }
 
 void vendor_load_properties()
 {
-    // Init a dummy BT MAC address, will be overwritten later
-    property_set("ro.boot.btmacaddr", "00:00:00:00:00:00");
-    init_target_properties();
     init_alarm_boot_properties();
 }

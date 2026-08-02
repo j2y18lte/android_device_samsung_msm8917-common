@@ -55,7 +55,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    bluetooth.hfp.client=1 \
     qcom.bluetooth.soc=smd \
     ro.bluetooth.hfp.ver=1.7 \
     ro.qualcomm.bt.hci_transport=smd \
@@ -144,7 +143,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Samsung Specific
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.debug_level=0x4f4d \
-    ro.product_ship=true
+    ro.product_ship=true \
+    ro.config.low_ram=true
 
 # Samsung-Specific RIL
 PRODUCT_PROPERTY_OVERRIDES += \

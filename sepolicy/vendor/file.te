@@ -12,3 +12,10 @@ type sysfs_j2y18_touchpanel, fs_type, sysfs_type;
 
 type sysfs_j2y18_usb_nofua, fs_type, sysfs_type;
 
+type wifi_efs_file, file_type;
+type imei_efs_file, file_type;
+type app_efs_file, file_type;
+
+type sysfs_j2y18_reset_enabled, fs_type, sysfs_type;
+type sysfs_j2y18_volkey_wakeup, fs_type, sysfs_type;
+

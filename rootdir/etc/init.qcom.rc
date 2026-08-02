@@ -59,7 +59,11 @@ on init
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
 
-# faced
+    # zram
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 100
+    swapon_all /vendor/etc/fstab.qcom
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -160,7 +164,7 @@ on boot
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
 #   Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/rmem_max  16777216
     write /proc/sys/net/core/wmem_max  8388608
 
     # Set permissions so radio can read
@@ -183,9 +187,6 @@ on boot
 
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
-
-   # Camera XML
-    symlink /system/etc/camera /data/misc/camera
 
     # Allow access to emmc rawdump block partition and dload sysfs node
     chown root system /dev/block/bootdevice/by-name/rawdump
@@ -243,8 +244,11 @@ on post-fs-data
     # Create directory for voiceprint
     mkdir /data/misc/qvop 0771 system system
 
-    #Create folder for mm-qcamera-daemon
+    # Camera runtime data on the real decrypted /data
+    mkdir /data/vendor/camera 0770 camera camera
     mkdir /data/misc/camera 0770 camera camera
+    restorecon_recursive /data/vendor/camera
+    restorecon_recursive /data/misc/camera
 
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
@@ -355,11 +359,19 @@ on post-fs-data
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
 
+    # Qualcomm time_daemon fallback storage
+    mkdir /data/vendor/time 0770 system system
+    restorecon_recursive /data/vendor/time
+
     mkdir /data/vendor/audio/ 0770 media audio
 
     # Create a folder for audio delta files
     mkdir /data/vendor/audio/acdbdata 0770 media audio
     mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
+
+    # Restore labels after the real encrypted userdata is mounted
+    restorecon_recursive /data/vendor/misc/audio
+    restorecon_recursive /data/vendor/audio
 
     setprop vold.post_fs_data_done 1
 
@@ -406,11 +418,6 @@ on post-fs-data
     #Create SWAP related dirs
     mkdir /data/system/swap 0770 root system
     chmod 2770 /data/system/swap
-
-    # set aggressive read ahead for dm-0 and dm-1 during boot up
-    write /sys/block/dm-0/queue/read_ahead_kb 2048
-    write /sys/block/dm-1/queue/read_ahead_kb 2048
-    write /sys/block/dm-2/queue/read_ahead_kb 2048
 
     # Create vpp directory
     mkdir /data/vendor/vpp 0770 media media
@@ -483,9 +490,12 @@ on property:persist.sys.ssr.enable_ramdumps=0
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
-    #Reset read ahead for dm-0 and dm-1 to 512kb
-    write /sys/block/dm-0/queue/read_ahead_kb 512
-    write /sys/block/dm-1/queue/read_ahead_kb 512
+
+    # Camera daemon detects sensors after FDE framework restart.
+    # Re-register the provider only after the system has fully booted.
+    restart vendor.camera-provider-2-4
+    restart cameraserver
+
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
@@ -500,9 +510,6 @@ on property:vendor.radio.atfwd.start=false
 on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
-
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
 
 on property:bluetooth.sap.status=running
     start bt-sap
@@ -536,9 +543,21 @@ service qcom-c_main-sh /vendor/bin/init.class_main.sh
     user root
     oneshot
 
+# FDE starts these services once against temporary userdata.
+# Stop them before vold switches to the real decrypted /data.
+on property:vold.decrypt=trigger_reset_main
+    stop cameraserver
+    stop vendor.camera-provider-2-4
+    stop audioserver
+    stop vendor.audio-hal-2-0
+
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
     start wcnss-service
+
+    # Reinitialize audio against the real decrypted /data
+    restart vendor.audio-hal-2-0
+    restart audioserver
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -563,48 +582,6 @@ service vendor.tftp_server /vendor/bin/tftp_server
 
 #on property:wc_transport.start_hci=false
 #    stop start_hci_filter
-
-#service start_hci_filter /system/vendor/bin/wcnss_filter
-#    class late_start
-#    user bluetooth
-#    group bluetooth diag system wakelock
-#    seclabel u:r:bluetooth:s0
-#    disabled
-
-service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin inet
-    disabled
-    oneshot
-
-service bt-sap /system/bin/sapd 15
-    user bluetooth
-    group bluetooth net_bt_admin
-    class late_start
-    disabled
-    oneshot
-
-service btsnoop /system/bin/btsnoop
-   user bluetooth
-   group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
-   class late_start
-   disabled
-   oneshot
-
-service bt_logger /system/bin/bt_logger
-   user bluetooth
-   group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
-   class late_start
-   disabled
-   oneshot
-
-service ftmd /system/bin/logwrapper /system/vendor/bin/ftmdaemon
-    class late_start
-    user root
-    group bluetooth net_bt_admin misc diag net_bt
-    disabled
-    oneshot
 
 service vendor.port-bridge /system/vendor/bin/port-bridge
     class main

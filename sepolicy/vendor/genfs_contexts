@@ -17,3 +17,8 @@ genfscon sysfs /devices/i2c@11/i2c-7/7-0071/power_supply u:object_r:sysfs_batter
 # Qualcomm USB power supply
 genfscon sysfs /devices/soc/78db000.usb/power_supply u:object_r:sysfs_batteryinfo:s0
 
+genfscon sysfs /devices/soc/78db000.usb/msm_hsusb/gadget/lun0/nofua u:object_r:sysfs_j2y18_usb_nofua:s0
+
+genfscon sysfs /devices/sys/module/qpnp_power_on/parameters/reset_enabled u:object_r:sysfs_j2y18_reset_enabled:s0
+genfscon sysfs /devices/sys/power/volkey_wakeup u:object_r:sysfs_j2y18_volkey_wakeup:s0
+

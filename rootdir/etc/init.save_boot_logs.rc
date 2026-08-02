@@ -1,13 +1,37 @@
-on property:sys.boot_completed=1
-    write /dev/kmsg "SAVE_BOOT_LOGS_RC: sys.boot_completed=1"
+# j2y18lte automatic continuous boot/FDE log collector
+#
+# No manual trigger and no archive.
+# Current boot logs:
+#   /data/local/tmp/log/
+# Previous boot logs:
+#   /data/local/tmp/log.previous/
+
+# Earliest normal point where userdata is available.
+on post-fs-data
     mkdir /data/local 0771 shell shell
     mkdir /data/local/tmp 0771 shell shell
-    mkdir /data/local/tmp/log 0777 root root
+    start save_boot_logs
+
+# FDE-specific triggers. Repeated "start" is harmless while the service runs.
+on property:vold.decrypt=trigger_post_fs_data
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
+    start save_boot_logs
+
+on property:vold.decrypt=trigger_restart_framework
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
+    start save_boot_logs
+
+# Fallback for an unencrypted boot or unusual vold sequence.
+on property:sys.boot_completed=1
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
     start save_boot_logs
 
 service save_boot_logs /system/bin/sh /system/bin/save_boot_logs.sh
-    class late_start
+    class main
     user root
-    group root system log readproc shell sdcard_rw
-    oneshot
+    group root system log readproc shell sdcard_rw media audio camera drmrpc inet net_admin bluetooth
     disabled
+    oneshot

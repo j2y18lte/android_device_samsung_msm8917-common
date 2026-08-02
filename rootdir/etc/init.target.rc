@@ -164,23 +164,10 @@ service qseecomd /vendor/bin/qseecomd
    class core
    user root
    group root
-
-#service aostlmd /system/bin/aostlmd
-#   class late_start
-#   user system
-#   group system net_raw
-
 service perfd /system/vendor/bin/perfd
    class main
    user root
    disabled
-
-#service gamed /system/vendor/bin/gamed
-#   class main
-#   user system
-#   group system
-#   disabled
-#   socket gamed seqpacket 0640 system system
 
 service thermal-engine /system/vendor/bin/thermal-engine
    class main
@@ -190,6 +177,12 @@ service thermal-engine /system/vendor/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    socket thermal-send-rule stream 0660 system system
    group root
+
+service vendor.power_off_alarm /vendor/bin/power_off_alarm
+    class core
+    group system
+    disabled
+    oneshot
 
 on boot
     insmod /system/lib/modules/adsprpc.ko
@@ -203,7 +196,6 @@ on boot
     chown system drmrpc /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/input/input0/secure_touch_enable
     chown system drmrpc /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/input/input0/secure_touch
     chown system system /sys/kernel/hbtp/display_pwr
-
 
 # Add a cpuset for the camera daemon
 # We want all cores for camera
@@ -300,6 +292,7 @@ on charger
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     setprop sys.usb.configfs 0
     start qcom-post-boot
+    start vendor.power_off_alarm
 
 service dtseagleservice /system/vendor/bin/dts_eagle_service
     class late_start

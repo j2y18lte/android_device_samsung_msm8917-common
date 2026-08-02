@@ -28,80 +28,46 @@
 
 target=`getprop ro.board.platform`
 
-function configure_memory_parameters() {
-    # Set Memory paremeters.
-    #
-    # Set per_process_reclaim tuning parameters
-    # 2GB 64-bit will have aggressive settings when compared to 1GB 32-bit
-    # 1GB and less will use vmpressure range 50-70, 2GB will use 10-70
-    # 1GB and less will use 512 pages swap size, 2GB will use 1024
-    #
-    # Set Low memory killer minfree parameters
-    # 32 bit all memory configurations will use 15K series
-    # 64 bit up to 2GB with use 14K, and above 2GB will use 18K
-    #
-    # Set ALMK parameters (usually above the highest minfree values)
-    # 32 bit will have 53K & 64 bit will have 81K
-    #
-    # Set ZCache parameters
-    # max_pool_percent is the percentage of memory that the compressed pool
-    # can occupy.
-    # clear_percent is the percentage of memory at which zcache starts
-    # evicting compressed pages. This should be slighlty above adj0 value.
-    # clear_percent = (adj0 * 100 / avalible memory in pages)+1
-    #
-    arch_type=`uname -m`
-    MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-    MemTotal=${MemTotalStr:16:8}
-    MemTotalPg=$((MemTotal / 4))
-    adjZeroMinFree=18432
+function write_if_exists() {
+    node="$1"
+    value="$2"
 
-## Remark: Samsung disables almk configs
-#    # Read adj series and set adj threshold for PPR and ALMK.
-#    # This is required since adj values change from framework to framework.
-#    adj_series=`cat /sys/module/lowmemorykiller/parameters/adj`
-#    adj_1="${adj_series#*,}"
-#    set_almk_ppr_adj="${adj_1%%,*}"
-#    # PPR and ALMK should not act on HOME adj and below.
-#    # Normalized ADJ for HOME is 6. Hence multiply by 6
-#    # ADJ score represented as INT in LMK params, actual score can be in decimal
-#    # Hence add 6 considering a worst case of 0.9 conversion to INT (0.9*6).
-#    set_almk_ppr_adj=$(((set_almk_ppr_adj * 6) + 6))
-#    echo $set_almk_ppr_adj > /sys/module/lowmemorykiller/parameters/adj_max_shift
-#    echo $set_almk_ppr_adj > /sys/module/process_reclaim/parameters/min_score_adj
-    echo 0 > /sys/module/process_reclaim/parameters/enable_process_reclaim
-## Remark: Samsung disables almk configs
-#    echo 70 > /sys/module/process_reclaim/parameters/pressure_max
-#    echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
-    echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
-    if [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 2097152 ]; then
-        echo 10 > /sys/module/process_reclaim/parameters/pressure_min
-        echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
-#        echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
-        echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-        adjZeroMinFree=18432
-    elif [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 1048576 ]; then
-        echo 10 > /sys/module/process_reclaim/parameters/pressure_min
-        echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
-#        echo "14746,18432,22118,25805,40000,55000" > /sys/module/lowmemorykiller/parameters/minfree
-        echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-        adjZeroMinFree=14746
-    elif [ "$arch_type" == "aarch64" ]; then
-        echo 50 > /sys/module/process_reclaim/parameters/pressure_min
-        echo 512 > /sys/module/process_reclaim/parameters/per_swap_size
-#        echo "14746,18432,22118,25805,40000,55000" > /sys/module/lowmemorykiller/parameters/minfree
-        echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-        adjZeroMinFree=14746
-    else
-        echo 50 > /sys/module/process_reclaim/parameters/pressure_min
-        echo 512 > /sys/module/process_reclaim/parameters/per_swap_size
-#        echo "15360,19200,23040,26880,34415,43737" > /sys/module/lowmemorykiller/parameters/minfree
-        echo 53059 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-        adjZeroMinFree=15360
+    if [ -e "$node" ]; then
+        echo "$value" > "$node"
     fi
-    clearPercent=$((((adjZeroMinFree * 100) / MemTotalPg) + 1))
-    echo $clearPercent > /sys/module/zcache/parameters/clear_percent
-    echo 30 >  /sys/module/zcache/parameters/max_pool_percent
+}
+
+function configure_memory_parameters() {
+    # Keep kernel LMK enabled. Android lmkd still controls adj/minfree.
+    write_if_exists /sys/module/lowmemorykiller/parameters/enable_lmk 1
+
+    # Conservative Adaptive LMK for a low-RAM device.
+    write_if_exists /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write_if_exists /sys/module/lowmemorykiller/parameters/adj_max_shift 850
+    write_if_exists /sys/module/lowmemorykiller/parameters/vmpressure_file_min 32768
+
+    # Process reclaim is useful only when zRAM is active.
+    if grep -q 'zram0' /proc/swaps; then
+        write_if_exists /sys/module/process_reclaim/parameters/pressure_min 50
+        write_if_exists /sys/module/process_reclaim/parameters/pressure_max 90
+        write_if_exists /sys/module/process_reclaim/parameters/per_swap_size 512
+        write_if_exists /sys/module/process_reclaim/parameters/swap_opt_eff 30
+        write_if_exists /sys/module/process_reclaim/parameters/min_score_adj 850
+        write_if_exists /sys/module/process_reclaim/parameters/enable_process_reclaim 1
+        log -t qcom-post-boot "zRAM active; ALMK and process_reclaim enabled"
+    else
+        write_if_exists /sys/module/process_reclaim/parameters/enable_process_reclaim 0
+        log -t qcom-post-boot "zRAM inactive; process_reclaim disabled"
+    fi
+
+    # Optional legacy Qualcomm zcache tuning.
+    read MemKey MemTotal MemUnit < /proc/meminfo
+    if [ -n "$MemTotal" ] && [ "$MemTotal" -gt 0 ]; then
+        MemTotalPg=$((MemTotal / 4))
+        clearPercent=$((((15360 * 100) / MemTotalPg) + 1))
+        write_if_exists /sys/module/zcache/parameters/clear_percent "$clearPercent"
+    fi
+    write_if_exists /sys/module/zcache/parameters/max_pool_percent 30
 }
 
 case "$target" in
@@ -290,16 +256,6 @@ case "$target" in
                 echo 50000 > /proc/sys/kernel/sched_freq_inc_notify
                 echo 50000 > /proc/sys/kernel/sched_freq_dec_notify
 
-                # Change power debug parameters permission
-                chown radio.system /sys/module/qpnp_power_on/parameters/reset_enabled
-                chown radio.system /sys/module/qpnp_power_on/parameters/wake_enabled
-                chown radio.system /sys/module/lpm_levels/parameters/secdebug
-                chmod 664 /sys/module/qpnp_power_on/parameters/reset_enabled
-                chmod 664 /sys/module/qpnp_power_on/parameters/wake_enabled
-                chmod 664 /sys/module/lpm_levels/parameters/secdebug
-                chown radio.system /sys/power/volkey_wakeup
-                chmod 0660 /sys/power/volkey_wakeup
-
                 #change governor node permission
                 chown radio.system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
                 chmod 664 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
@@ -311,9 +267,6 @@ case "$target" in
                 echo 1 > /sys/module/lpm_levels/lpm_workarounds/dynamic_clock_gating
                 # Enable timer migration to little cluster
                 echo 1 > /proc/sys/kernel/power_aware_timer_migration
-
-                # Volume down key(connect to PMIC RESIN) wakeup enable/disable
-                echo 0 > /sys/power/volkey_wakeup
 
                 #control daemon for xosd
                 factory_mode=`getprop ro.factory.factory_binary`

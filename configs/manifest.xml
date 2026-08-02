@@ -268,7 +268,7 @@
             <name>IUsb</name>
             <instance>default</instance>
         </interface>
-     </hal>
+    </hal>
     <hal format="hidl">
         <name>android.hardware.vibrator</name>
         <transport>hwbinder</transport>
@@ -610,15 +610,6 @@
             <name>IOemHook</name>
             <instance>slot1</instance>
             <instance>slot2</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.vibrator</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISecVibrator</name>
-            <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">

@@ -6,3 +6,5 @@ type j2y18_bluetooth_fw_prop, property_type;
 type j2y18_qseecomd_prop, property_type;
 type j2y18_usb_rps_prop, property_type;
 type j2y18_usb_config_extra_prop, property_type;
+type j2y18_camera_prop, property_type;
+type j2y18_gpu_freq_prop, property_type;

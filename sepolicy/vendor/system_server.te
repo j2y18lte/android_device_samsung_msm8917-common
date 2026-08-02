@@ -1,0 +1,2 @@
+# Traverse Samsung FactoryApp directory for calibration files.
+allow system_server app_efs_file:dir search;

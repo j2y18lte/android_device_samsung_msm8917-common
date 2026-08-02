@@ -19,4 +19,8 @@
     <!-- Flag indicating if the tty is enabled -->
     <bool name="tty_enabled">true</bool>
 
+    <!-- Use full-strength vibration because the Samsung vibrator
+         has no amplitude-control sysfs node. -->
+    <bool name="use_simple_vibration_pattern">true</bool>
+
 </resources>

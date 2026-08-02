@@ -19,4 +19,8 @@
 /dev/block/platform/soc/7824900\.sdhci/mmcblk0p17               u:object_r:msadp_block_device:s0
 /dev/block/platform/soc/7824900\.sdhci/by-name/msadp            u:object_r:msadp_block_device:s0
 
-/dev/socket/sap_uim_socket1                        u:object_r:rild_socket:s0
+/dev/socket/sap_uim_socket1                                     u:object_r:rild_socket:s0
+
+/efs/wifi(/.*)?          u:object_r:wifi_efs_file:s0
+/efs/imei(/.*)?          u:object_r:imei_efs_file:s0
+/efs/FactoryApp(/.*)?    u:object_r:app_efs_file:s0

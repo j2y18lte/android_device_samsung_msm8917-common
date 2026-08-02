@@ -12,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 LOCAL_PATH := $(call my-dir)
 
@@ -20,14 +21,9 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional
 LOCAL_C_INCLUDES := \
     system/core/base/include \
-    system/core/init \
-    external/selinux/libselinux/include
-LOCAL_CFLAGS := -Wall
+    system/core/init
+LOCAL_CPPFLAGS := -Wall
 LOCAL_SRC_FILES := init_msm8937.cpp
-ifneq ($(TARGET_LIBINIT_MSM8937_DEFINES_FILE),)
-  LOCAL_SRC_FILES += ../../../../$(TARGET_LIBINIT_MSM8937_DEFINES_FILE)
-endif
 LOCAL_MODULE := libinit_msm8937
-LOCAL_STATIC_LIBRARIES := libbase libselinux
 
 include $(BUILD_STATIC_LIBRARY)

@@ -1,0 +1,4 @@
+# Vold enumerates mounted partitions during fstrim.
+# DSP and EFS are not userdata volumes and must not be exposed to vold.
+dontaudit vold adsprpcd_file:dir { read open ioctl };
+dontaudit vold efs_file:dir read;

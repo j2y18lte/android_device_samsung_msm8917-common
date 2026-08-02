@@ -1,2 +1,6 @@
 # Lineage Samsung display settings
 allow system_app sysfs_j2y18_mdnie:file rw_file_perms;
+
+# Allow Settings to display memory and zRAM statistics.
+allow system_app proc_pagetypeinfo:file r_file_perms;
+r_dir_file(system_app, sysfs_zram)

@@ -19,3 +19,15 @@ allow qti_init_shell vendor_radio_data_file:file getattr;
 
 # Configure USB mass-storage FUA behavior.
 allow qti_init_shell sysfs_j2y18_usb_nofua:file { open write };
+
+allow qti_init_shell sysfs_devices_system_cpu:file setattr;
+allow qti_init_shell sysfs_msm_power:file setattr;
+allow qti_init_shell sysfs_net:file rw_file_perms;
+
+set_prop(qti_init_shell, j2y18_gpu_freq_prop)
+allow qti_init_shell kmsg_device:chr_file { open write };
+allow qti_init_shell sysfs_j2y18_reset_enabled:file setattr;
+allow qti_init_shell sysfs_j2y18_volkey_wakeup:file w_file_perms;
+
+# Check whether zRAM swap is active before enabling process reclaim.
+allow qti_init_shell proc_swaps:file r_file_perms;

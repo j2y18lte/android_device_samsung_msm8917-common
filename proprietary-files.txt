@@ -2,13 +2,13 @@
 # Generated from vendor/samsung/j2y18lte/j2y18lte-vendor.mk and Android.mk
 
 # ACDB data
-vendor/etc/Bluetooth_cal.acdb
-vendor/etc/General_cal.acdb
-vendor/etc/Global_cal.acdb
-vendor/etc/Handset_cal.acdb
-vendor/etc/Hdmi_cal.acdb
-vendor/etc/Headset_cal.acdb
-vendor/etc/Speaker_cal.acdb
+vendor/etc/Bluetooth_cal.acdb:vendor/etc/acdbdata/Bluetooth_cal.acdb
+vendor/etc/General_cal.acdb:vendor/etc/acdbdata/General_cal.acdb
+vendor/etc/Global_cal.acdb:vendor/etc/acdbdata/Global_cal.acdb
+vendor/etc/Handset_cal.acdb:vendor/etc/acdbdata/Handset_cal.acdb
+vendor/etc/Hdmi_cal.acdb:vendor/etc/acdbdata/Hdmi_cal.acdb
+vendor/etc/Headset_cal.acdb:vendor/etc/acdbdata/Headset_cal.acdb
+vendor/etc/Speaker_cal.acdb:vendor/etc/acdbdata/Speaker_cal.acdb
 
 # ADSP - from j4primelte - PPR1.180610.011/J415FNXXU2BSDL
 vendor/bin/adsprpcd
@@ -697,8 +697,7 @@ vendor/etc/init/vendor.qti.hardware.tui_comm@1.0-service-qti.rc
 vendor/lib/vendor.qti.hardware.tui_comm@1.0.so
 
 # Vibrator - from j4primelte - PPR1.180610.011/J415FNXXU2BSDL
-vendor/bin/hw/vendor.samsung.hardware.vibrator@1.0-service
-vendor/etc/init/vendor.samsung.hardware.vibrator@1.0-service.rc
+vendor/lib/hw/vibrator.default.so
 vendor/lib/vendor.samsung.hardware.vibrator@1.0.so
 
 # Firmware - from j4primelte - PPR1.180610.011/J415FNXXU2BSDL

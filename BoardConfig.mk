@@ -37,7 +37,7 @@ TARGET_CPU_VARIANT := cortex-a53
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive zswap.enabled=0
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_IMAGE_NAME := zImage
@@ -53,9 +53,6 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000 --b
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
-
-# ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := true
@@ -159,7 +156,6 @@ BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := msm8917
 PROTOBUF_SUPPORTED := true
 TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
-
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom

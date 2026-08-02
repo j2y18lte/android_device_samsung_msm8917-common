@@ -1,0 +1,2 @@
+# Create and configure /data/vendor/camera during boot.
+allow vendor_init camera_data_file:dir { create setattr };
